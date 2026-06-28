@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M075RD72BB"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M075RD72BB"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -17,7 +18,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Cairo:wght@400;700;900&display=swap');
 
         :root {
-            --bg: #000000;
+            --bg: #020204;
             --p-glow: #bc13fe; 
             --p-dark: #6a0dad;
             --n-blue: #00d4ff;
@@ -25,7 +26,7 @@
             --text: #ffffff;
             --danger: #ff003c;
             --pure-white: #ffffff;
-            --void-deep: #0a0015;
+            --void-deep: #080110;
         }
 
         /* شاشة التحميل - المجرة المصغرة */
@@ -84,12 +85,13 @@
         }
 
         header {
-            padding: 80px 0;
+            padding: 90px 0 60px 0;
             text-align: center;
             border-bottom: 2px solid var(--pure-white);
-            background: radial-gradient(circle at center, #0d001a 0%, #000 100%);
+            background: radial-gradient(circle at center, #0d001a 0%, #020204 100%);
             box-shadow: 0 10px 40px rgba(188, 19, 254, 0.15);
             position: relative;
+            overflow: hidden;
         }
 
         header::after {
@@ -101,65 +103,63 @@
 
         .void-logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 6rem;
+            font-size: 6.5rem;
             font-weight: 900;
             color: var(--pure-white);
             text-transform: uppercase;
             letter-spacing: 20px;
             text-shadow: 0 0 25px var(--pure-white), 0 0 50px var(--p-glow), 0 0 80px var(--n-blue);
-            margin-bottom: 15px;
-            animation: glitch 4s infinite alternate;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 10;
         }
 
-        .nav-bar {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            padding: 22px;
-            background: rgba(0,0,0,0.9);
-            border-bottom: 1px solid var(--p-glow);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            position: sticky;
-            top: 0;
+        /* الثقب الأسود الجبار المتحرك تحت اللوجو */
+        .header-black-hole {
+            width: 140px;
+            height: 40px;
+            background: #000;
+            border-radius: 50%;
+            margin: 10px auto 25px auto;
+            position: relative;
+            box-shadow: 0 0 30px 10px #fff, 0 0 50px 20px var(--p-glow), 0 0 80px 30px var(--n-blue);
+            animation: holeAnimate 4s ease-in-out infinite alternate;
+            z-index: 5;
         }
 
-        .nav-bar a {
-            color: var(--pure-white);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-            transition: 0.3s;
-            letter-spacing: 1px;
+        @keyframes holeAnimate {
+            0% { transform: scaleX(1) scaleY(1); opacity: 0.8; box-shadow: 0 0 30px 10px #fff, 0 0 50px 20px var(--p-glow), 0 0 80px 30px var(--n-blue); }
+            100% { transform: scaleX(1.3) scaleY(0.8); opacity: 1; box-shadow: 0 0 40px 15px #fff, 0 0 70px 30px var(--n-blue), 0 0 100px 40px var(--p-glow); }
         }
 
-        .nav-bar a:hover {
-            color: var(--n-blue);
-            text-shadow: 0 0 12px var(--n-blue);
-        }
-
-        .container { padding: 50px 5%; }
+        .container { padding: 60px 5%; }
         .section-title { 
             color: var(--y-neon); 
             text-align: center; 
-            margin-bottom: 45px; 
-            text-shadow: 0 0 15px rgba(255, 240, 31, 0.6); 
+            margin-bottom: 50px; 
+            text-shadow: 0 0 20px rgba(255, 240, 31, 0.7); 
             font-weight: 900; 
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             letter-spacing: 2px;
+            position: relative;
         }
 
         .story-section {
-            background: linear-gradient(90deg, rgba(188, 19, 254, 0.12), rgba(0, 212, 255, 0.03));
+            background: linear-gradient(90deg, rgba(188, 19, 254, 0.15), rgba(0, 212, 255, 0.05));
             border-right: 6px solid var(--pure-white);
-            border-left: 1px solid rgba(255,255,255,0.05);
-            padding: 40px;
+            border-left: 1px solid rgba(255,255,255,0.08);
+            padding: 45px;
             margin: 20px auto;
             max-width: 950px;
-            border-radius: 0 25px 25px 0;
-            line-height: 2.2;
+            border-radius: 0 30px 30px 0;
+            line-height: 2.3;
             position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.9);
+            transition: 0.5s;
+        }
+        .story-section:hover {
+            box-shadow: 0 20px 50px rgba(188, 19, 254, 0.2);
+            border-right-color: var(--n-blue);
         }
 
         .story-section::before {
@@ -174,21 +174,26 @@
         }
 
         .discord-section {
-            background: linear-gradient(135deg, #050505 0%, #111111 100%);
+            background: linear-gradient(135deg, #050508 0%, #12121c 100%);
             border: 2px solid var(--n-blue);
-            border-radius: 25px;
-            padding: 50px;
+            border-radius: 30px;
+            padding: 55px;
             text-align: center;
             margin: 40px 0;
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.15);
             position: relative;
+            transition: 0.4s;
+        }
+        .discord-section:hover {
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.4);
+            transform: translateY(-5px);
         }
 
         .discord-btn {
             display: inline-block;
             background: #5865F2;
             color: white;
-            padding: 16px 50px;
+            padding: 18px 55px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 900;
@@ -198,59 +203,76 @@
             font-size: 1.1rem;
         }
 
-        .discord-btn:hover { transform: scale(1.1) translateY(-3px); box-shadow: 0 0 40px #5865F2; }
+        .discord-btn:hover { transform: scale(1.08) translateY(-3px); box-shadow: 0 0 45px #5865F2; }
 
         /* مواقع التواصل الاجتماعي الجبارة */
         .social-networks-section {
-            background: linear-gradient(180deg, #000 0%, var(--void-deep) 100%);
+            background: linear-gradient(180deg, #020204 0%, var(--void-deep) 100%);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 25px;
-            padding: 40px;
+            border-radius: 30px;
+            padding: 45px;
             margin: 40px 0;
         }
 
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
             width: 100%;
         }
 
         .social-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(188, 19, 254, 0.3);
-            border-radius: 15px;
-            padding: 25px;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(188, 19, 254, 0.25);
+            border-radius: 20px;
+            padding: 30px;
             text-align: center;
             text-decoration: none;
             color: #fff;
             font-weight: bold;
-            transition: 0.3s;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
         }
 
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+
+        .social-card:hover::before { transform: translateX(100%); }
+
         .social-card:hover {
-            transform: translateY(-5px);
-            background: rgba(188, 19, 254, 0.1);
-            border-color: var(--p-glow);
-            box-shadow: 0 0 20px rgba(188, 19, 254, 0.3);
+            transform: translateY(-8px);
+            background: rgba(188, 19, 254, 0.08);
+            box-shadow: 0 15px 30px rgba(188, 19, 254, 0.25);
         }
 
         .goal-item {
-            background: #060606;
-            border: 1px solid #1a1a1a;
-            padding: 20px;
-            border-radius: 15px;
+            background: #050508;
+            border: 1px solid #151520;
+            padding: 25px;
+            border-radius: 20px;
             margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            transition: 0.3s;
         }
+        .goal-item:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
         .progress-track {
             width: 100%;
-            background: #111;
+            background: #0d0d13;
             height: 12px;
             border-radius: 6px;
             margin: 15px 0 5px 0;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.04);
         }
         .progress-fill {
             height: 100%;
@@ -262,60 +284,69 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 35px;
         }
 
         .card {
-            background: linear-gradient(145deg, #0a0a0a, #020202);
+            background: linear-gradient(145deg, #08080c, #020204);
             border: 2px solid var(--pure-white);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 24px;
+            padding: 35px;
             width: 90%;
-            max-width: 400px;
+            max-width: 420px;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
             cursor: pointer;
             position: relative;
             overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-15px) scale(1.02);
             border-color: var(--n-blue);
-            box-shadow: 0 0 45px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.45);
         }
 
         /* بطاقة الشريك الجبارة */
         .partner-card {
-            background: linear-gradient(225deg, #111 0%, #000 100%);
+            background: linear-gradient(225deg, #09090f 0%, #020204 100%);
             border: 2px solid var(--y-neon) !important;
-            max-width: 460px !important;
+            max-width: 480px !important;
             text-align: center;
         }
         .partner-img {
-            width: 130px;
-            height: 130px;
-            border-radius: 25px;
-            margin-bottom: 18px;
+            width: 135px;
+            height: 135px;
+            border-radius: 28px;
+            margin-bottom: 20px;
             border: 2px solid var(--y-neon);
             box-shadow: 0 0 25px rgba(255, 240, 31, 0.4);
             object-fit: cover;
+            transition: 0.5s;
+        }
+        .partner-card:hover .partner-img {
+            transform: rotate(5deg) scale(1.05);
         }
 
-        .card h3 { color: var(--y-neon); margin-top: 0; font-size: 2rem; font-weight: 900; }
+        .card h3 { color: var(--y-neon); margin-top: 0; font-size: 2.1rem; font-weight: 900; }
 
         .suggest-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             width: 100%;
         }
         .suggest-card {
-            background: #050505;
-            padding: 25px;
-            border-radius: 18px;
-            border: 1px solid #222;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            background: #040407;
+            padding: 30px;
+            border-radius: 22px;
+            border: 1px solid #181825;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+        .suggest-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.15);
         }
 
         .modal {
@@ -333,16 +364,16 @@
         .modal.show { display: block; opacity: 1; }
 
         .modal-content {
-            background: #030303;
+            background: #030305;
             margin: 6% auto;
             width: 90%;
             max-width: 560px;
             border: 2px solid var(--p-glow);
             border-radius: 30px;
-            padding: 30px;
+            padding: 35px;
             transform: scale(0.6);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 50px rgba(188, 19, 254, 0.3);
+            box-shadow: 0 0 60px rgba(188, 19, 254, 0.35);
         }
 
         .modal.show .modal-content { transform: scale(1); }
@@ -382,18 +413,17 @@
 
         .dl-btn:hover { background: var(--n-blue); color: #000; box-shadow: 0 0 25px var(--n-blue); }
 
-        .stats-area { background: #000; padding: 80px 5%; text-align: center; position: relative; }
+        .stats-area { background: #020204; padding: 80px 5%; text-align: center; position: relative; }
         
         input, textarea {
-            width: 100%; background: #050505; border: 1px solid var(--p-glow);
-            padding: 15px; margin: 12px 0; color: white; border-radius: 10px; box-sizing: border-box;
+            width: 100%; background: #050508; border: 1px solid var(--p-glow);
+            padding: 16px; margin: 12px 0; color: white; border-radius: 12px; box-sizing: border-box;
             transition: 0.3s;
         }
         input:focus, textarea:focus { border-color: var(--n-blue); outline: none; box-shadow: 0 0 10px var(--n-blue); }
 
-        footer { padding: 60px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); background: #020202; }
-        .social a { color: var(--pure-white); margin: 0 15px; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .social a:hover { color: var(--p-glow); }
+        footer { padding: 60px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); background: #010102; }
+        .social p { font-size: 0.95rem; font-weight: bold; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -404,14 +434,10 @@
         <p style="position: absolute; bottom: 20%; font-family: 'Orbitron'; letter-spacing: 6px; color: var(--n-blue); font-size: 0.75rem; font-weight: 900;">INITIALIZING SYSTEM INTO VOID...</p>
     </div>
 
-    <nav class="nav-bar">
-        <a href="index.html">الرئيسية</a>
-        <a href="privacy.html">سياسة الخصوصية</a>
-        <a href="contact.html">اتصل بنا</a>
-    </nav>
-
     <header>
         <div class="void-logo">VOID</div>
+        <!-- الثقب الأسود الجبار المتحرك -->
+        <div class="header-black-hole"></div>
         <p style="color: var(--pure-white); opacity: 0.9; letter-spacing: 7px; font-weight: 900;">THE ULTIMATE EVOLUTIONARY SYSTEM CORE</p>
     </header>
 
@@ -432,22 +458,23 @@
         </div>
     </div>
 
+    <!-- قسم مواقع التواصل الاجتماعي المعدلة للتطبيق -->
     <div class="container">
         <h2 class="section-title">الشبكة الموحدة: منصات VOID الرسمية</h2>
         <div class="social-networks-section">
             <p style="text-align: center; color: #aaa; margin-bottom: 30px; font-weight: bold;">تابع قنوات الكيان الرسمية للحصول على التحديثات الفورية ومراقبة تطور النظام:</p>
             <div class="social-grid">
-                <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="social-card" style="border-color: #ff0000;">
-                    <div style="color: #ff0000; font-size: 1.5rem; margin-bottom: 10px;">YouTube</div>
-                    <span style="font-size: 0.85rem; color: #ddd;">شروحات واستعراض النظام</span>
+                <a href="https://www.tiktok.com/@setvoidofficial" target="_blank" class="social-card" style="border-color: #ff0050;">
+                    <div style="color: #ff0050; font-size: 1.6rem; margin-bottom: 10px; font-family: 'Orbitron'; font-weight: 900;">TikTok</div>
+                    <span style="font-size: 0.85rem; color: #ddd;">الحساب الرسمي على تيك توك</span>
                 </a>
-                <a href="https://telegram.me/YOUR_CHANNEL" target="_blank" class="social-card" style="border-color: #0088cc;">
-                    <div style="color: #0088cc; font-size: 1.5rem; margin-bottom: 10px;">Telegram</div>
-                    <span style="font-size: 0.85rem; color: #ddd;">التسريبات والملفات الفورية</span>
+                <a href="https://www.instagram.com/setvoid.official" target="_blank" class="social-card" style="border-color: #e1306c;">
+                    <div style="color: #e1306c; font-size: 1.6rem; margin-bottom: 10px; font-family: 'Orbitron'; font-weight: 900;">Instagram</div>
+                    <span style="font-size: 0.85rem; color: #ddd;">مستجدات الكيان البصرية</span>
                 </a>
-                <a href="https://tiktok.com/@YOUR_ACCOUNT" target="_blank" class="social-card" style="border-color: #ff0050;">
-                    <div style="color: #ff0050; font-size: 1.5rem; margin-bottom: 10px;">TikTok</div>
-                    <span style="font-size: 0.85rem; color: #ddd;">مقاطع قصيرة وتحديثات سريعة</span>
+                <a href="https://x.com/setvoidOfficial" target="_blank" class="social-card" style="border-color: #ffffff;">
+                    <div style="color: #ffffff; font-size: 1.6rem; margin-bottom: 10px; font-family: 'Orbitron'; font-weight: 900;">X / Twitter</div>
+                    <span style="font-size: 0.85rem; color: #ddd;">التغريدات والملفات الفورية</span>
                 </a>
             </div>
         </div>
@@ -487,7 +514,7 @@
         <div class="grid">
             <div class="card" style="border-color: var(--n-blue);" onclick="openModal('supportModal')">
                 <h3>مركز الدعم المالي الاستراتيجي</h3>
-                <p>ساهم بتمويلك في تسريع وتيرة تطوير "النظام الأعظم" لضمان استمراريته الحرة خارج القيود.</p>
+                <p>ساهم بتمويلك في تسريع وتيرة تطوير "النظام الأعظم" لضشان استمراريته الحرة خارج القيود.</p>
             </div>
         </div>
     </section>
@@ -497,7 +524,7 @@
         <div class="grid">
             <div class="card" style="border-color: var(--p-glow);" onclick="openModal('contactModal')">
                 <h3>إرسال اقتراح أو شفرة نظام</h3>
-                <p>اقتراحك البرمجي أو الفكري سيصل مباشرة إلى البريد الشخصي لـ WAVER للمراجعة والاعتماد الفوري.</p>
+                <p>اقتراحك البرمجي أو الفكري سيصل مباشرة إلى البريد الشخصي للمراجعة والاعتماد الفوري.</p>
             </div>
         </div>
     </section>
@@ -510,8 +537,8 @@
     <section class="stats-area">
         <h2 class="section-title">برنامج الشراكة والتحالفات الرسمية</h2>
         <div class="card" style="border-color: var(--danger); margin: auto;" onclick="openModal('partnerModal')">
-            <h3>تقديم اتفاقية تحالف تقني</h3>
-            <p>اصهر مشروعك البرمجي أو تطبيقك داخل شبكة VOID التقنية الرسمية.</p>
+            <h3>تقديم اتفاقية تحالف تقني أو إعلان</h3>
+            <p>اصهر مشروعك أو أرسل طلب إعلان رسمي للتكامل داخل شبكة VOID التقنية.</p>
             <p style="color: var(--y-neon); font-weight: bold; margin-top: 15px;">طلبات الشراكة قيد المعالجة: <span id="partnerCount">0</span></p>
         </div>
     </section>
@@ -537,7 +564,7 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('contactModal')">&times;</span>
             <h2 style="color: var(--n-blue);">بروتوكول التواصل الآمن</h2>
-            <input type="text" id="senderName" placeholder="اسمك المشعار أو التعريفي بالنظام">
+            <input type="text" id="senderName" placeholder="اسمك المستعار أو التعريفي بالنظام">
             <textarea id="senderMsg" rows="4" placeholder="اكتب اقتراحك البرمجي هنا ليتم مراجعته من قبل المطور..."></textarea>
             <button class="dl-btn" onclick="sendToWaver()">إرسال الشفرة إلى النظام</button>
         </div>
@@ -562,28 +589,34 @@
             <span class="close-btn" onclick="closeModal('supportModal')">&times;</span>
             <h2 style="color: var(--n-blue);">المشاريع والمحركات المتاحة</h2>
             <div class="news-item" style="border-color: var(--y-neon);">تطبيق ونواة SETVOID (مفتوح للدعم المباشر)</div>
-            <p>دعمك المالي يضمن استمرار تدفق التطوير الحر والبرمجيات الخالية تماماً من الرقابة والقيود الحاضنة.</p>
+            <p>دعمك المالي يضمن استمرار تدفق التطوير الحر والبرمجيات الخالية تماماً من الرقابة والقيود الحاضنة عبر البريد المعتمد.</p>
         </div>
     </div>
 
     <div id="partnerModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('partnerModal')">&times;</span>
-            <h2 style="color: var(--danger);">اتفاقية التحالف والشراكة</h2>
-            <input type="text" id="pAppName" placeholder="اسم تطبيقك / مشروعك البرمجي">
-            <input type="text" id="pSocials" placeholder="رابط مواقع التواصل الاجتماعي أو مستودع الكود">
+            <h2 style="color: var(--danger);">اتفاقية التحالف والشراكة / الإعلانات</h2>
+            <input type="text" id="pAppName" placeholder="اسم تطبيقك / مشروعك أو الجهة المعلنة">
+            <input type="text" id="pSocials" placeholder="رقم هاتف أو رابط تواصل">
             <div class="warning-box">
-                ⚠️ تحذير صارم: أي محاولات إرسال طلبات عشوائية أو غير جادة ستؤدي إلى إدراج خادمك وجهازك في القائمة السوداء للنظام بشكل نهائي.
+                ⚠️ تذكير: تقديم الطلبات الرسمية يتم توجيهه مباشرة لمعالجة واتساب الفورية أو البريد الرسمي.
             </div>
-            <button class="dl-btn" style="border-color: var(--danger); color: var(--danger);" onclick="handlePartnerRequest()">تقديم طلب تحالف رسمي</button>
+            <button class="dl-btn" style="border-color: var(--danger); color: var(--danger);" onclick="handlePartnerRequest()">تقديم طلب شراكة / إعلان</button>
         </div>
     </div>
 
     <footer>
         <div class="social">
-            <a href="index.html">الرئيسية</a> | <a href="privacy.html">سياسة الخصوصية</a> | <a href="contact.html">اتصل بنا</a>
+            <p style="opacity: 0.8;">قنوات الاتصال المعتمدة لطلب الإعلانات والشراكات:</p>
+            <p style="direction: ltr; margin: 10px 0;">
+                <a href="https://wa.me/4915511039496" target="_blank" style="color: #25D366; font-size: 1.1rem;">WhatsApp: +49 15511 039496</a>
+            </p>
+            <p style="direction: ltr;">
+                <a href="mailto:setvoid.app@gmail.com" style="color: var(--n-blue);">setvoid.app@gmail.com</a>
+            </p>
         </div>
-        <p style="margin-top:30px; opacity:0.5; font-size: 0.85rem; font-family: 'Orbitron'; letter-spacing: 2px;">© 2026 VOID SYSTEM INTERFACE. SECURED & AUTHENTICATED BY WAVER.</p>
+        <p style="margin-top:40px; opacity:0.5; font-size: 0.85rem; font-family: 'Orbitron'; letter-spacing: 2px;">© 2026 VOID SYSTEM INTERFACE. SECURED & AUTHENTICATED BY WAVER.</p>
     </footer>
 
     <script>
@@ -641,13 +674,13 @@
         function handlePreOrder() {
             dCount++;
             document.getElementById('demandCount').innerText = dCount;
-            window.location.href = `mailto:momnsuper2010@gmail.com?subject=SETVOID PRE-ORDER&body=أرغب في الانضمام للرتب العليا...`;
+            window.location.href = `mailto:setvoid.app@gmail.com?subject=SETVOID PRE-ORDER&body=أرغب في الانضمام للرتب العليا...`;
         }
 
         function sendToWaver() {
             const n = document.getElementById('senderName').value;
             const m = document.getElementById('senderMsg').value;
-            window.location.href = `mailto:momnsuper2010@gmail.com?subject=New Suggestion from ${n}&body=${encodeURIComponent(m)}`;
+            window.location.href = `mailto:setvoid.app@gmail.com?subject=New Suggestion from ${n}&body=${encodeURIComponent(m)}`;
             alert("تم إرسال اقتراحك للمراجعة. سيظهر هنا في حال تم اعتماده من WAVER.");
         }
 
@@ -655,7 +688,7 @@
             pCount++;
             document.getElementById('partnerCount').innerText = pCount;
             const app = document.getElementById('pAppName').value;
-            window.location.href = `mailto:momnsuper2010@gmail.com?subject=PARTNERSHIP REQUEST&body=طلب شراكة لـ: ${app}`;
+            window.location.href = `https://wa.me/4915511039496?text=${encodeURIComponent('طلب شراكة / إعلان لـ: ' + app)}`;
         }
 
         function openModal(id) {
@@ -680,11 +713,5 @@
         loadSuggestions();
     </script>
 </body>
-    <div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
-          <iframe data-aa='2436810' src='//acceptable.a-ads.com/2436810/?size=Adaptive'
-                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
-        </div>
-
 <script defer src="/_vercel/insights/script.js"></script>
-
 </html>
