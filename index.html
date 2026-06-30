@@ -1,792 +1,149 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M075RD72BB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-M075RD72BB');
-</script>
-    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VOID | System Core</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Cairo:wght@400;700;900&display=swap');
-
-        :root {
-            --bg: #020204;
-            --p-glow: #bc13fe; 
-            --p-dark: #6a0dad;
-            --n-blue: #00d4ff;
-            --y-neon: #fff01f;
-            --text: #ffffff;
-            --danger: #ff003c;
-            --pure-white: #ffffff;
-            --void-deep: #080110;
-        }
-
-        /* شاشة التحميل - المجرة المصغرة */
-        #loader-wrapper {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .black-hole {
-            position: relative;
-            width: 85px; 
-            height: 85px; 
-            background: #000;
-            border-radius: 50%;
-            box-shadow: 0 0 40px 15px #fff, 0 0 60px 30px var(--p-glow), 0 0 90px 45px var(--n-blue);
-            animation: pulse 1.8s infinite alternate;
-        }
-
-        .galaxy-spin {
-            position: absolute;
-            width: 160px; 
-            height: 160px; 
-            border: 2px solid rgba(255,255,255,0.05);
-            border-radius: 50%;
-            animation: spin 2.5s linear infinite;
-        }
-
-        .galaxy-spin::before {
-            content: '';
-            position: absolute;
-            top: -4px; left: 50%;
-            width: 8px; height: 8px;
-            background: var(--n-blue);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--n-blue);
-        }
-
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.7; } 100% { transform: scale(1.15); opacity: 1; } }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Cairo', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        header {
-            padding: 90px 0 60px 0;
-            text-align: center;
-            border-bottom: 2px solid var(--pure-white);
-            background: radial-gradient(circle at center, #0d001a 0%, #020204 100%);
-            box-shadow: 0 10px 40px rgba(188, 19, 254, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: -2px; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--n-blue), var(--p-glow), transparent);
-        }
-
-        .void-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 6.5rem;
-            font-weight: 900;
-            color: var(--pure-white);
-            text-transform: uppercase;
-            letter-spacing: 20px;
-            text-shadow: 0 0 25px var(--pure-white), 0 0 50px var(--p-glow), 0 0 80px var(--n-blue);
-            margin-bottom: 5px;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* حاوية الثقب الأسود الفضائي الجبار مع المدارات */
-        .space-blackhole-container {
-            position: relative;
-            width: 250px;
-            height: 180px;
-            margin: 10px auto 25px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 5;
-            perspective: 600px;
-        }
-
-        /* مركز الجاذبية المظلم المطلق */
-        .cosmic-singularity {
-            position: absolute;
-            width: 55px;
-            height: 55px;
-            background: #000000;
-            border-radius: 50%;
-            z-index: 4;
-            box-shadow: inset 0 0 20px #000, 0 0 35px 10px rgba(255, 255, 255, 0.9), 0 0 60px 25px var(--p-glow);
-            animation: cosmicPulse 3s ease-in-out infinite alternate;
-        }
-
-        /* المدار الغباري والقرص المتنامي الرئيسي المشوه بفعل الجاذبية */
-        .accretion-disk-main {
-            position: absolute;
-            width: 220px;
-            height: 45px;
-            border-radius: 50%;
-            background: transparent;
-            border: 8px double transparent;
-            border-top: 8px solid var(--n-blue);
-            border-bottom: 6px solid var(--p-glow);
-            filter: blur(2px) drop-shadow(0 0 15px var(--n-blue));
-            transform: rotateX(70deg) rotateY(-15deg) rotateZ(0deg);
-            animation: orbitSpin 5s linear infinite;
-            z-index: 3;
-            opacity: 0.9;
-        }
-
-        /* المدار الخارجي الثانوي للثقب الأسود */
-        .accretion-disk-outer {
-            position: absolute;
-            width: 260px;
-            height: 65px;
-            border-radius: 50%;
-            background: transparent;
-            border: 3px dashed transparent;
-            border-left: 3px solid rgba(188, 19, 254, 0.6);
-            border-right: 4px solid rgba(0, 214, 255, 0.5);
-            filter: blur(1px);
-            transform: rotateX(75deg) rotateY(10deg) rotateZ(0deg);
-            animation: orbitSpinInverse 9s linear infinite;
-            z-index: 2;
-        }
-
-        /* حلقة أفقية خلفية متوهجة لعمق الفضاء */
-        .cosmic-halo {
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            background: radial-gradient(circle, rgba(188, 19, 254, 0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: 1;
-            transform: scaleY(0.3);
-            filter: blur(8px);
-            animation: haloGlow 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes cosmicPulse {
-            0% { transform: scale(0.95); box-shadow: inset 0 0 20px #000, 0 0 30px 8px #fff, 0 0 50px 20px var(--p-glow); }
-            100% { transform: scale(1.05); box-shadow: inset 0 0 20px #000, 0 0 45px 15px #fff, 0 0 80px 35px var(--n-blue); }
-        }
-
-        @keyframes orbitSpin {
-            0% { transform: rotateX(70deg) rotateY(-15deg) rotateZ(0deg); }
-            100% { transform: rotateX(70deg) rotateY(-15deg) rotateZ(360deg); }
-        }
-
-        @keyframes orbitSpinInverse {
-            0% { transform: rotateX(75deg) rotateY(10deg) rotateZ(360deg); }
-            100% { transform: rotateX(75deg) rotateY(10deg) rotateZ(0deg); }
-        }
-
-        @keyframes haloGlow {
-            0% { opacity: 0.6; transform: scaleY(0.28) scaleX(1); }
-            100% { opacity: 1; transform: scaleY(0.35) scaleX(1.15); }
-        }
-
-        .container { padding: 60px 5%; }
-        .section-title { 
-            color: var(--y-neon); 
-            text-align: center; 
-            margin-bottom: 50px; 
-            text-shadow: 0 0 20px rgba(255, 240, 31, 0.7); 
-            font-weight: 900; 
-            font-size: 2.4rem;
-            letter-spacing: 2px;
-            position: relative;
-        }
-
-        .story-section {
-            background: linear-gradient(90deg, rgba(188, 19, 254, 0.15), rgba(0, 212, 255, 0.05));
-            border-right: 6px solid var(--pure-white);
-            border-left: 1px solid rgba(255,255,255,0.08);
-            padding: 45px;
-            margin: 20px auto;
-            max-width: 950px;
-            border-radius: 0 30px 30px 0;
-            line-height: 2.3;
-            position: relative;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.9);
-            transition: 0.5s;
-        }
-        .story-section:hover {
-            box-shadow: 0 20px 50px rgba(188, 19, 254, 0.2);
-            border-right-color: var(--n-blue);
-        }
-
-        .story-section::before {
-            content: 'CLASSIFIED PROTOCOL';
-            position: absolute;
-            top: 15px; left: 25px;
-            font-size: 0.75rem;
-            color: var(--danger);
-            letter-spacing: 4px;
-            font-family: 'Orbitron';
-            font-weight: 900;
-        }
-
-        .discord-section {
-            background: linear-gradient(135deg, #050508 0%, #12121c 100%);
-            border: 2px solid var(--n-blue);
-            border-radius: 30px;
-            padding: 55px;
-            text-align: center;
-            margin: 40px 0;
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.15);
-            position: relative;
-            transition: 0.4s;
-        }
-        .discord-section:hover {
-            box-shadow: 0 0 60px rgba(0, 212, 255, 0.4);
-            transform: translateY(-5px);
-        }
-
-        .discord-btn {
-            display: inline-block;
-            background: #5865F2;
-            color: white;
-            padding: 18px 55px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 900;
-            margin-top: 25px;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 25px rgba(88, 101, 242, 0.5);
-            font-size: 1.1rem;
-        }
-
-        .discord-btn:hover { transform: scale(1.08) translateY(-3px); box-shadow: 0 0 45px #5865F2; }
-
-        /* مواقع التواصل الاجتماعي الجبارة */
-        .social-networks-section {
-            background: linear-gradient(180deg, #020204 0%, var(--void-deep) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 30px;
-            padding: 45px;
-            margin: 40px 0;
-        }
-
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            width: 100%;
-        }
-
-        .social-card {
-            background: rgba(255,255,255,0.01);
-            border: 1px solid rgba(188, 19, 254, 0.25);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
-            transform: translateX(-100%);
-            transition: 0.6s;
-        }
-
-        .social-card:hover::before { transform: translateX(100%); }
-
-        .social-card:hover {
-            transform: translateY(-8px);
-            background: rgba(188, 19, 254, 0.08);
-            box-shadow: 0 15px 30px rgba(188, 19, 254, 0.25);
-        }
-
-        .goal-item {
-            background: #050508;
-            border: 1px solid #151520;
-            padding: 25px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-            transition: 0.3s;
-        }
-        .goal-item:hover {
-            border-color: rgba(0, 212, 255, 0.3);
-        }
-
-        .progress-track {
-            width: 100%;
-            background: #0d0d13;
-            height: 12px;
-            border-radius: 6px;
-            margin: 15px 0 5px 0;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.04);
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--n-blue), var(--p-glow));
-            box-shadow: 0 0 15px var(--n-blue);
-        }
-
-        .grid {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 35px;
-        }
-
-        .card {
-            background: linear-gradient(145deg, #08080c, #020204);
-            border: 2px solid var(--pure-white);
-            border-radius: 24px;
-            padding: 35px;
-            width: 90%;
-            max-width: 420px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: var(--n-blue);
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.45);
-        }
-
-        /* بطاقة الشريك الجبارة */
-        .partner-card {
-            background: linear-gradient(225deg, #09090f 0%, #020204 100%);
-            border: 2px solid var(--y-neon) !important;
-            max-width: 480px !important;
-            text-align: center;
-        }
-        .partner-img {
-            width: 135px;
-            height: 135px;
-            border-radius: 28px;
-            margin-bottom: 20px;
-            border: 2px solid var(--y-neon);
-            box-shadow: 0 0 25px rgba(255, 240, 31, 0.4);
-            object-fit: cover;
-            transition: 0.5s;
-        }
-        .partner-card:hover .partner-img {
-            transform: rotate(5deg) scale(1.05);
-        }
-
-        .card h3 { color: var(--y-neon); margin-top: 0; font-size: 2.1rem; font-weight: 900; }
-
-        .suggest-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            width: 100%;
-        }
-        .suggest-card {
-            background: #040407;
-            padding: 30px;
-            border-radius: 22px;
-            border: 1px solid #181825;
-            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
-            transition: 0.3s;
-        }
-        .suggest-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255,255,255,0.15);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98);
-            z-index: 2000;
-            overflow-y: auto;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            backdrop-filter: blur(15px);
-        }
-
-        .modal.show { display: block; opacity: 1; }
-
-        .modal-content {
-            background: #030305;
-            margin: 6% auto;
-            width: 90%;
-            max-width: 560px;
-            border: 2px solid var(--p-glow);
-            border-radius: 30px;
-            padding: 35px;
-            transform: scale(0.6);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 60px rgba(188, 19, 254, 0.35);
-        }
-
-        .modal.show .modal-content { transform: scale(1); }
-
-        .close-btn { color: var(--pure-white); font-size: 2.8rem; cursor: pointer; float: left; margin-top: -15px; transition: 0.3s; }
-        .close-btn:hover { color: var(--danger); }
-
-        .warning-box {
-            background: rgba(255, 0, 60, 0.12);
-            border: 1px solid var(--danger);
-            color: var(--danger);
-            padding: 18px;
-            border-radius: 12px;
-            margin: 20px 0;
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
-        }
-
-        .news-container {
-            margin-top: 20px;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 15px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 15px;
-        }
-
-        .news-item { border-right: 4px solid var(--p-glow); padding: 10px 15px; margin-bottom: 15px; font-weight: bold; }
-
-        .dl-btn {
-            display: block; width: 100%; text-align: center; padding: 20px 0;
-            margin-top: 25px; background: transparent; border: 2px solid var(--n-blue);
-            color: var(--n-blue); text-decoration: none; font-weight: 900;
-            border-radius: 12px; cursor: pointer; transition: 0.3s;
-            font-size: 1.05rem; letter-spacing: 1px;
-        }
-
-        .dl-btn:hover { background: var(--n-blue); color: #000; box-shadow: 0 0 25px var(--n-blue); }
-
-        .stats-area { background: #020204; padding: 80px 5%; text-align: center; position: relative; }
-        
-        input, textarea {
-            width: 100%; background: #050508; border: 1px solid var(--p-glow);
-            padding: 16px; margin: 12px 0; color: white; border-radius: 12px; box-sizing: border-box;
-            transition: 0.3s;
-        }
-        input:focus, textarea:focus { border-color: var(--n-blue); outline: none; box-shadow: 0 0 10px var(--n-blue); }
-
-        footer { padding: 60px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); background: #010102; }
-        .social p { font-size: 0.95rem; font-weight: bold; margin-bottom: 10px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOID | بناء التطور الرقمي</title>
+    
+    <!-- Professional Metadata Architecture -->
+    <meta name="description" content="نحن نبني الأنظمة الرقمية التي تحول التطور البشري. شركة VOID للحلول التقنية المستقبلية المتقدمة.">
+    <meta name="keywords" content="VOID, SETVOID, الذكاء الاصطناعي, تطوير البرمجيات, تكنولوجيا مستقبلية">
+    <meta property="og:title" content="VOID | بناء التطور الرقمي">
+    <meta property="og:description" content="نحن نبني الأنظمة الرقمية التي تحول التطور البشري.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Styling Framework Base -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="loader-wrapper">
-        <div class="galaxy-spin"></div>
-        <div class="black-hole"></div>
-        <p style="position: absolute; bottom: 20%; font-family: 'Orbitron'; letter-spacing: 6px; color: var(--n-blue); font-size: 0.75rem; font-weight: 900;">INITIALIZING SYSTEM INTO VOID...</p>
+    <!-- Loading Screen System Architecture -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader-pulse"></div>
     </div>
 
-    <header>
-        <div class="void-logo">VOID</div>
-        <div class="space-blackhole-container">
-            <div class="cosmic-singularity"></div>
-            <div class="accretion-disk-main"></div>
-            <div class="accretion-disk-outer"></div>
-            <div class="cosmic-halo"></div>
+    <!-- Fixed Interactive Glassmorphism Navigation Structure -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo">VOID</a>
         </div>
-        <p style="color: var(--pure-white); opacity: 0.9; letter-spacing: 7px; font-weight: 900;">THE ULTIMATE EVOLUTIONARY SYSTEM CORE</p>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li class="active"><a href="index.html">الرئيسية</a></li>
+            <li ><a href="about.html">عن VOID</a></li>
+            <li ><a href="projects.html">المشاريع</a></li>
+            <li ><a href="partners.html">الشركاء</a></li>
+        </ul>
+    </nav>
+
+    <!-- Cosmic Engine Rendering Canvases -->
+    <canvas id="cosmic-bg"></canvas>
+    <div class="nebula-overlay"></div>
+
+    <!-- Main Container -->
+    
+    <header class="hero-home">
+        <div class="black-hole-container">
+            <div class="black-hole-core"></div>
+            <div class="accretion-disk"></div>
+            <div class="glow-purple"></div>
+            <div class="glow-blue"></div>
+            <div class="energy-ring"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="en-title">VOID</h1>
+            <div class="hero-subtitle">Building Digital Evolution</div>
+            <p class="hero-desc">نحن نبني الأنظمة الرقمية المتقدمة والحلول السيبرانية فائقة الذكاء التي تعيد تشكيل وتغيير مسار التطور البشري.</p>
+            <div class="btn-group">
+                <a href="projects.html" class="btn btn-primary">استكشف مشاريعنا</a>
+                <a href="about.html" class="btn btn-secondary">عن VOID</a>
+            </div>
+        </div>
     </header>
 
-    <div class="container">
-        <h2 class="section-title">بروتوكول النشأة: سديم الفراغ الأعظم</h2>
-        <div class="story-section">
-            <p style="color: var(--pure-white); font-weight: 900; margin-bottom: 18px; border-bottom: 2px solid var(--p-glow); display: inline-block; font-family: 'Orbitron'; letter-spacing: 2px;">[ VOID CORE FILE: 00-X ]</p>
-            <p>لم تكن البداية مجرد أسطر برمجية عادية، بل كانت ثورة وتمرداً حقيقياً ضد العجز البشري والقيود التقنية. في عتمة عام 2026، ومن عمق الشفرات المعقدة والخوارزميات المستحيلة، انطلق المطور العبقري <strong>WAVER</strong> في مهمة لخرق المألوف: استنساخ "نظام الارتقاء المطلق" وتحويله من خيال علمي بحت إلى واقع برميجي مرعب يجتاح الأنظمة الرقمية.</p>
-            <p>من قلب هذا الفراغ السيبراني اللامتناهي، وُلدت <strong>VOID</strong> لتكون الكيان المهيمن والذراع التقني الحاكم لمشروع <strong>SETVOID</strong>. إننا هنا لا نقوم ببناء مجرد تطبيقات أو منصات تقليدية، نحن نؤسس لأنظمة برمجية خارقة تعيد تعريف الحدود والقدرات البشرية الكامنة. داخل شبكتنا التقنية المظلمة، يتلاشى مفهوم المستخدم التقليدي الضعيف، ليتحول كل فرد ينضم إلينا من مجرد "بشري عادي" إلى "صياد مستيقظ" يمتلك زمام القوة والتحكم الكامل في واجهته الخاصة.</p>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="discord-section">
-            <h2 style="color: var(--pure-white); font-weight: 900; font-size: 2rem;">سيرفر VOID: عرين الصيادين المستيقظين</h2>
-            <p style="max-width: 750px; margin: 25px auto; color: #ccc; line-height: 1.8;">انضم الآن إلى النواة المركزية والقلب النابض للنظام الموحد. هنا حيث تلتقي نخبة العقول والمطورين، نناقش آخر تحديثات شفرة <strong>SETVOID</strong>، ونكشف عن أعمق التسريبات والملفات السرية الحصرية قبل الجميع. ابنِ تحالفاتك الرقمية الجبارة مع "المستيقظين" الآخرين، وشارك في قيادة الفعاليات، وكن شريكاً أساسياً في بناء وتطوير السيستم القادم.</p>
-            <a href="https://discord.gg/YOUR_LINK_HERE" class="discord-btn">انضم إلى مجتمع VOID على Discord</a>
-        </div>
-    </div>
-
-    <div class="container">
-        <h2 class="section-title">الشبكة الموحدة: منصات VOID الرسمية</h2>
-        <div class="social-networks-section">
-            <p style="text-align: center; color: #aaa; margin-bottom: 30px; font-weight: bold;">تابع قنوات الكيان الرسمية للحصول على التحديثات الفورية ومراقبة تطور النظام:</p>
-            <div class="social-grid">
-                <a href="https://www.tiktok.com/@setvoidofficial" target="_blank" class="social-card" style="border-color: #ff0050;">
-                    <div style="color: #ff0050; font-size: 1.6rem; margin-bottom: 10px; font-family: 'Orbitron'; font-weight: 900;">TikTok</div>
-                    <span style="font-size: 0.85rem; color: #ddd;">الحساب الرسمي على تيك توك</span>
-                </a>
-                <a href="https://www.instagram.com/setvoid.official" target="_blank" class="social-card" style="border-color: #e1306c;">
-                    <div style="color: #e1306c; font-size: 1.6rem; margin-bottom: 10px; font-family: 'Orbitron'; font-weight: 900;">Instagram</div>
-                    <span style="font-size: 0.85rem; color: #ddd;">مستجدات الكيان البصرية</span>
-                </a>
-                <a href="https://x.com/setvoidOfficial" target="_blank" class="social-card" style="border-color: #ffffff;">
-                    <div style="color: #ffffff; font-size: 1.6rem; margin-bottom: 10px; font-family: 'Orbitron'; font-weight: 900;">X / Twitter</div>
-                    <span style="font-size: 0.85rem; color: #ddd;">التغريدات والملفات الفورية</span>
-                </a>
+    <main class="container">
+        
+        <!-- Who We Are Section -->
+        <section class="section-padding">
+            <div class="section-title">
+                <span>WHO WE ARE</span>
+                <h2>من نحن</h2>
             </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <h2 class="section-title">أهداف المؤسسة الكبرى</h2>
-        <div id="goals-container"></div>
-    </div>
-
-    <div class="container">
-        <h2 class="section-title">شركاء النظام الإستراتيجيين</h2>
-        <div class="grid">
-            <div class="card partner-card" onclick="openModal('studentsPartnerModal')">
-                <img src="Students.png" alt="طلاب" class="partner-img">
-                <h3>تطبيق طلاب</h3>
-                <p>المنصة التعليمية الرائدة للارتقاء بالمستوى المعرفي. اضغط للتفاصيل والتحميل السريع.</p>
-                <div style="color: var(--y-neon); font-size: 0.85rem; margin-top: 12px; font-weight: bold;">[ شراكة تقنية معتمدة من الكيان ]</div>
+            <div class="glass-card about-brief">
+                <p>شركة VOID هي مظلة تقنية رائدة تسعى لدمج الوعي الإنساني والأنظمة المعقدة من خلال برمجيات مبتكرة ومؤتمتة بالكامل. نحن لا نقوم فقط بتصميم وتطوير التطبيقات، بل نسعى لبناء بيئة رقمية متكاملة تهدف إلى تعزيز نمط الحياة وتطوير الإنتاجية البشرية باستخدام أحدث تقنيات الويب السحابية والمؤشرات الذكية الهادفة لرفع الوعي والتنظيم الذاتي الإنساني.</p>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div class="container">
-        <h2 class="section-title">الأعمال والتطبيقات الحاكمة</h2>
-        <div class="grid">
-            <div class="card" onclick="openModal('setvoidModal')" style="border-color: var(--p-glow);">
-                <h3>SETVOID</h3>
-                <p>نظام تطوير الكيان البشري المتكامل وتجاوز القيود التقنية. ارتقِ بخصائص شفرتك الآن.</p>
-                <p style="color: var(--p-glow); font-weight: bold; margin-top: 15px;">عدد المطالب بها في الفراغ: <span id="demandCount">0</span></p>
-                <div style="color: var(--n-blue); font-weight: bold; margin-top: 12px;">[ فتح واجهة بروتوكول النظام ]</div>
+        <!-- Project Spotlight Section -->
+        <section class="section-padding">
+            <div class="section-title">
+                <span>PROJECT SPOTLIGHT</span>
+                <h2>أبرز مشاريعنا</h2>
             </div>
-        </div>
-    </div>
-
-    <section class="container">
-        <h2 class="section-title">دعم المشاريع المستقلة</h2>
-        <div class="grid">
-            <div class="card" style="border-color: var(--n-blue);" onclick="openModal('supportModal')">
-                <h3>مركز الدعم المالي الاستراتيجي</h3>
-                <p>ساهم بتمويلك في تسريع وتيرة تطوير "النظام الأعظم" لضشان استمراريته الحرة خارج القيود.</p>
+            <div class="spotlight-container">
+                <div class="glass-card premium-project-card">
+                    <div class="project-visual">
+                        <div class="visual-element"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="en-title">SETVOID</h3>
+                        <p>نظام رقمي ثوري متكامل يهدف إلى قيادة التطوير الذاتي، وبناء العادات والمهام عبر آليات فريدة ترتكز على فلسفة البوابات الذكية، لتنظيم الوعي الإنساني والخروج من الفوضى إلى الانضباط الصارم والمستمر.</p>
+                        <a href="projects.html" class="btn btn-primary">اكتشف النظام بالكامل</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="container">
-        <h2 class="section-title">تواصل مباشر مع WAVER</h2>
-        <div class="grid">
-            <div class="card" style="border-color: var(--p-glow);" onclick="openModal('contactModal')">
-                <h3>إرسال اقتراح أو شفرة نظام</h3>
-                <p>اقتراحك البرمجي أو الفكري سيصل مباشرة إلى البريد الشخصي للمراجعة والاعتماد الفوري.</p>
+        <!-- Statistics Section -->
+        <section class="section-padding">
+            <div class="section-title">
+                <span>STATISTICS</span>
+                <h2>إحصائيات الإنجاز</h2>
             </div>
-        </div>
-    </section>
-
-    <section class="container">
-        <h2 class="section-title">الاقتراحات والبروتوكولات المعتمدة</h2>
-        <div class="suggest-grid" id="suggestions-box"></div>
-    </section>
-
-    <section class="stats-area">
-        <h2 class="section-title">برنامج الشراكة والتحالفات الرسمية</h2>
-        <div class="card" style="border-color: var(--danger); margin: auto;" onclick="openModal('partnerModal')">
-            <h3>تقديم اتفاقية تحالف تقني أو إعلان</h3>
-            <p>اصهر مشروعك أو أرسل طلب إعلان رسمي للتكامل داخل شبكة VOID التقنية.</p>
-            <p style="color: var(--y-neon); font-weight: bold; margin-top: 15px;">طلبات الشراكة قيد المعالجة: <span id="partnerCount">0</span></p>
-        </div>
-    </section>
-
-    <div id="studentsPartnerModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('studentsPartnerModal')">&times;</span>
-            <h2 style="color: var(--y-neon);">منصة طلاب - Students</h2>
-            <div style="text-align: center; margin: 20px 0;">
-                <img src="Students.png" style="width: 100px; border-radius: 15px; border: 2px solid var(--y-neon);">
+            <div class="stats-grid">
+                <div class="glass-card stat-item">
+                    <span class="stat-number" data-target="4" data-suffix="+">0+</span>
+                    <span class="stat-label">المشاريع التقنية</span>
+                </div>
+                <div class="glass-card stat-item">
+                    <span class="stat-number" data-target="1" data-suffix="">0</span>
+                    <span class="stat-label">المؤسس</span>
+                </div>
+                <div class="glass-card stat-item">
+                    <span class="stat-number" data-target="2026" data-suffix="">0</span>
+                    <span class="stat-label">عام التأسيس</span>
+                </div>
+                <div class="glass-card stat-item">
+                    <span class="stat-number" data-target="100" data-suffix="%">0%</span>
+                    <span class="stat-label">رؤية مستقبلية</span>
+                </div>
             </div>
-            <p>أول منصة تعليمية مدمجة بالكامل ضمن نواة نظام VOID لتسهيل الوصول الآمن للموارد الدراسية بشكل ذكي.</p>
-            <div class="news-container">
-                <div class="news-item">تحميل مباشر للموبايل (Android APK)</div>
-                <div class="news-item">نسخة الويب السريعة الفائقة</div>
-                <div class="news-item">دليل الاستخدام الذكي والربط بالسيستم</div>
+        </section>
+
+    </main>
+
+    <!-- Premium Core Corporate Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <a href="index.html" class="footer-logo">VOID</a>
+            <div class="copyright">
+                &copy; 2026 VOID. جميع الحقوق محفوظة. بناء التطور الرقمي.
             </div>
-            <a href="https://github.com/mafia77f1/students/releases/download/app/Students.apk" class="dl-btn" style="border-color: var(--y-neon); color: var(--y-neon);" download>تحميل تطبيق طلاب جبار (APK)</a>
+            <ul class="social-links">
+                <li><a href="#" class="en-title">X</a></li>
+                <li><a href="#" class="en-title">LN</a></li>
+                <li><a href="#" class="en-title">GH</a></li>
+            </ul>
         </div>
-    </div>
-
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('contactModal')">&times;</span>
-            <h2 style="color: var(--n-blue);">بروتوكول التواصل الآمن</h2>
-            <input type="text" id="senderName" placeholder="اسمك المستعار أو التعريفي بالنظام">
-            <textarea id="senderMsg" rows="4" placeholder="اكتب اقتراحك البرمجي هنا ليتم مراجعته من قبل المطور..."></textarea>
-            <button class="dl-btn" onclick="sendToWaver()">إرسال الشفرة إلى النظام</button>
-        </div>
-    </div>
-
-    <div id="setvoidModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('setvoidModal')">&times;</span>
-            <h2 style="color: var(--p-glow);">نظام SETVOID الاستثنائي</h2>
-            <p style="font-size: 0.85rem; color: #aaa;">النسخة: V1.0.4 [VOID REAWAKENED]</p>
-            <div class="news-container">
-                <div class="news-item">تفعيل بروتوكول "الطلب المسبق المطلق" للترقيات العليا.</div>
-                <div class="news-item">إعادة هيكلة وتحسين واجهات المستخدم لتناسب الشاشات والأجهزة اللوحية.</div>
-                <div class="news-item">إدراج محرك بيانات متطور لمراقبة وتحديث الـ Stats بدقة فائقة.</div>
-            </div>
-            <button class="dl-btn" onclick="handlePreOrder()">إرسال طلب مسبق الآن</button>
-        </div>
-    </div>
-
-    <div id="supportModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('supportModal')">&times;</span>
-            <h2 style="color: var(--n-blue);">المشاريع والمحركات المتاحة</h2>
-            <div class="news-item" style="border-color: var(--y-neon);">تطبيق ونواة SETVOID (مفتوح للدعم المباشر)</div>
-            <p>دعمك المالي يضمن استمرار تدفق التطوير الحر والبرمجيات الخالية تماماً من الرقابة والقيود الحاضنة عبر البريد المعتمد.</p>
-        </div>
-    </div>
-
-    <div id="partnerModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('partnerModal')">&times;</span>
-            <h2 style="color: var(--danger);">اتفاقية التحالف والشراكة / الإعلانات</h2>
-            <input type="text" id="pAppName" placeholder="اسم تطبيقك / مشروعك أو الجهة المعلنة">
-            <input type="text" id="pSocials" placeholder="رقم هاتف أو رابط تواصل">
-            <div class="warning-box">
-                ⚠️ تذكير: تقديم الطلبات الرسمية يتم توجيهه مباشرة لمعالجة واتساب الفورية أو البريد الرسمي.
-            </div>
-            <button class="dl-btn" style="border-color: var(--danger); color: var(--danger);" onclick="handlePartnerRequest()">تقديم طلب شراكة / إعلان</button>
-        </div>
-    </div>
-
-    <footer>
-        <div class="social">
-            <p style="opacity: 0.8;">قنوات الاتصال المعتمدة لطلب الإعلانات والشراكات:</p>
-            <p style="direction: ltr; margin: 10px 0;">
-                <a href="https://wa.me/4915511039496" target="_blank" style="color: #25D366; font-size: 1.1rem;">WhatsApp: +49 15511 039496</a>
-            </p>
-            <p style="direction: ltr;">
-                <a href="mailto:setvoid.app@gmail.com" style="color: var(--n-blue);">setvoid.app@gmail.com</a>
-            </p>
-        </div>
-        <p style="margin-top:40px; opacity:0.5; font-size: 0.85rem; font-family: 'Orbitron'; letter-spacing: 2px;">© 2026 VOID SYSTEM INTERFACE. SECURED & AUTHENTICATED BY WAVER.</p>
     </footer>
 
-    <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader-wrapper').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loader-wrapper').style.display = 'none';
-                }, 500);
-            }, 2000); 
-        });
-
-        let dCount = 0;
-        let pCount = 0;
-
-        const highGoals = [
-            { title: "الوصول بالبرمجية لحالة الاستقرار والسيادة الكلية ونقاء الشفرة.", desc: "الوصول بالبرمجية إلى مرحلة الاستقرار الكلي.", pct: 85 },
-            { title: "بناء وتوسيع النواة والمجتمع وتجميع النخبة تحت راية الفراغ.", desc: "تجميع الصيادين تحت راية واحدة.", pct: 60 },
-            { title: "بروتوكول الربط التقني الموحد لدمج جميع التطبيقات التابعة للسيستم.", desc: "ربط التطبيقات ببروتوكول VOID الموحد.", pct: 30 }
-        ];
-
-        const bestSuggestions = [
-            { user: "يوسف", text: "إضافة نظام مستويات (Levels) وجداول مكافآت متطورة للمستخدمين.", date: "2026/04/10", color: "var(--p-glow)" },
-            { user: "المطور X", text: "فتح واجهة الـ API للمطورين المستقلين للربط الآمن مع السيستم الموحد.", date: "2026/04/13", color: "var(--n-blue)" }
-        ];
-
-        function loadGoals() {
-            const container = document.getElementById('goals-container');
-            container.innerHTML = highGoals.map(g => `
-                <div class="goal-item">
-                    <div style="display:flex; justify-content:space-between">
-                        <strong style="color:var(--n-blue)">${g.title}</strong>
-                        <span style="color:var(--pure-white)">${g.pct}%</span>
-                    </div>
-                    <p style="font-size:0.85rem; color:#888; margin:5px 0;">${g.desc}</p>
-                    <div class="progress-track"><div class="progress-fill" style="width:${g.pct}%"></div></div>
-                </div>
-            `).join('');
-        }
-
-        function loadSuggestions() {
-            const container = document.getElementById('suggestions-box');
-            container.innerHTML = bestSuggestions.map(s => `
-                <div class="suggest-card" style="border-top: 3px solid ${s.color}">
-                    <h4 style="color:${s.color}; margin:0;">${s.user}</h4>
-                    <p style="font-size:0.9rem; margin:10px 0;">${s.text}</p>
-                    <div style="display:flex; justify-content:space-between; font-size:0.7rem; opacity:0.5;">
-                        <span>${s.date}</span>
-                        <span>معتمد ومصدق من قبل WAVER</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function handlePreOrder() {
-            dCount++;
-            document.getElementById('demandCount').innerText = dCount;
-            window.location.href = `mailto:setvoid.app@gmail.com?subject=SETVOID PRE-ORDER&body=أرغب في الانضمام للرتب العليا...`;
-        }
-
-        function sendToWaver() {
-            const n = document.getElementById('senderName').value;
-            const m = document.getElementById('senderMsg').value;
-            window.location.href = `mailto:setvoid.app@gmail.com?subject=New Suggestion from ${n}&body=${encodeURIComponent(m)}`;
-            alert("تم إرسال اقتراحك للمراجعة. سيظهر هنا في حال تم اعتماده من WAVER.");
-        }
-
-        function handlePartnerRequest() {
-            pCount++;
-            document.getElementById('partnerCount').innerText = pCount;
-            const app = document.getElementById('pAppName').value;
-            window.location.href = `https://wa.me/4915511039496?text=${encodeURIComponent('طلب شراكة / إعلان لـ: ' + app)}`;
-        }
-
-        function openModal(id) {
-            const m = document.getElementById(id);
-            m.style.display = 'block';
-            setTimeout(() => { m.classList.add('show'); }, 15);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(id) {
-            const m = document.getElementById(id);
-            m.classList.remove('show');
-            setTimeout(() => { m.style.display = 'none'; }, 400);
-            document.body.style.overflow = 'auto';
-        }
-
-        window.onclick = function(e) {
-            if (e.target.classList.contains('modal')) closeModal(e.target.id);
-        }
-
-        loadGoals();
-        loadSuggestions();
-    </script>
+    <!-- Interactive Scripts Deployment -->
+    <script src="main.js"></script>
 </body>
-<script defer src="/_vercel/insights/script.js"></script>
 </html>
