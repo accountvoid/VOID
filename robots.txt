@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://accountvoid.github.io/VOID/sitemap.xml
+Sitemap: https://voidhq.pages.dev/sitemap.xml
