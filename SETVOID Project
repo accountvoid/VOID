@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0812">
+    <title>SETVOID | النظام الميكانيكي للوعي والإنضباط</title>
+    
+    <!-- Meta Tags للـ SEO وتحسين الظهور -->
+    <meta name="description" content="SETVOID - المنصة الميكانيكية المتقدمة لتطوير الذات وبناء الإنضباط الحديدي من خلال تحويل أهدافك وعاداتك اليومية إلى نظام RPG متكامل ومحفز.">
+    <meta name="keywords" content="SETVOID, VOID, نظام المهام, تطوير الذات, الإنضباط الشخصي, Gamification, الوعي">
+    
+    <style>
+        :root {
+            --bg-deep: #0a0812;
+            --bg-surface: #120f1f;
+            --bg-card: #181528;
+            --primary: #8a2be2;
+            --primary-glow: rgba(138, 43, 226, 0.4);
+            --accent: #00ffff;
+            --accent-glow: rgba(0, 255, 255, 0.3);
+            --text-main: #f1f1f7;
+            --text-muted: #8e8a9f;
+            --border: #242038;
+            --success: #39ff14;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            padding-bottom: 60px;
+        }
+
+        /* الإطار العام والحاوية */
+        .wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* الهيدر وعنوان المشروع */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-deep) 100%);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid var(--primary);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: var(--text-main);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            font-size: 1.1rem;
+        }
+
+        /* أزرار الانتقال والسير */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--text-main);
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.7);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.05);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* أقسام العرض الهيكلية */
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2.section-title {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            border-right: 4px solid var(--primary);
+            padding-right: 15px;
+        }
+
+        /* شبكة الكروت والمؤشرات الأربعة */
+        .grid-attributes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .attr-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .attr-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .attr-card h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .attr-card .tag {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .attr-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* لوحة هيكلية النظام الميكانيكي */
+        .system-panel {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .panel-row {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            gap: 20px;
+        }
+
+        .panel-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .panel-row:first-child {
+            padding-top: 0;
+        }
+
+        .panel-label {
+            font-weight: bold;
+            color: var(--text-main);
+            min-width: 150px;
+            font-size: 1.1rem;
+        }
+
+        .panel-desc {
+            color: var(--text-muted);
+            flex: 1;
+        }
+
+        /* جدول البوابات والمراحل التطورية */
+        .gate-timeline {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .gate-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .gate-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .gate-item:first-child {
+            padding-top: 0;
+        }
+
+        .gate-number {
+            background: var(--primary);
+            color: var(--text-main);
+            padding: 4px 12px;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .gate-details h4 {
+            color: var(--text-main);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .gate-details p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* الفوتر السفلي للتحالف */
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* شاشات الهواتف المتجاوبة */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .panel-row { flex-direction: column; gap: 8px; }
+            .panel-label { min-width: auto; color: var(--accent); }
+            .gate-item { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        
+        <!-- الهيدر والتعريف بالنظام -->
+        <header>
+            <div class="project-badge">SYSTEM // AWARENESS // THE VOID</div>
+            <h1>SETVOID</h1>
+            <p>نظام برمي ميكانيكي متطور مصمم خصيصاً لإعادة هيكلة الإنضباط وبناء الوعي الذاتي بعيداً عن التشتت؛ عبر تحويل أهدافك وعاداتك اليومية الواقعية إلى لوحة تحكم ميكانيكية متكاملة الأبعاد.</p>
+            <div class="btn-group">
+                <a href="https://accountvoid.github.io/VOID" class="btn btn-primary">فتح واجهة التحكم الرقمية</a>
+                <a href="#system-details" class="btn btn-secondary">استكشاف الميكانيكية</a>
+            </div>
+        </header>
+
+        <!-- فلسفة البناء والأبعاد الحاكمة للمشروع -->
+        <section id="system-details">
+            <h2 class="section-title">فلسفة النظام والأبعاد الحاكمة</h2>
+            <p>إن تطبيق SETVOID لا يتبع الأساليب الطفولية أو المكررة الشائعة في تطبيقات تحسين العادات، بل يتعامل برصانة وعمق فلسفي مع مفهوم الوعي البشري[span_1](start_span)[span_1](end_span). يقوم النظام بتمثيل طاقتك ومجهوداتك الفعلية في الحياة الواقعية على شكل معطيات رقمية دقيقة وقابلة للقياس والتحليل المستمر، مما يضعك أمام مرآة وعيك الحقيقي[span_2](start_span)[span_2](end_span).</p>
+            
+            <div class="system-panel">
+                <div class="panel-row">
+                    <div class="panel-label">ميكانيكية الـ RPG</div>
+                    <div class="panel-desc">تحويل الواجبات والأعمال اليومية الثقيلة إلى مهمات تمنحك نقاط خبرة (XP) وذهباً رقمياً، بينما تؤدي العادات السيئة والتكاسل إلى تفعيل نظام عقوبات صارم يخصم من مؤشراتك ونقاط طاقتك الأساسية.</div>
+                </div>
+                <div class="panel-row">
+                    <div class="panel-label">المتجر والمكافآت</div>
+                    <div class="panel-desc">نظام تبادلي يمنحك القدرة على استخدام الذهب الذي جنيته من انضباطك لشراء رخص ومكافآت ترفيهية واقعية تحددها أنت بنفسك، مما يضمن تنظيم هرمون المكافأة لديك بكفاءة عالية وبدون تسويف.</div>
+                </div>
+                <div class="panel-row">
+                    <div class="panel-label">تأصيل الإنضباط</div>
+                    <div class="panel-desc">التركيز على بناء أسلوب حياة صارم ومتوازن يعتمد على الفعل المستمر والنضج العملي والفكري، بدلاً من الاعتماد على الحماس اللحظي المؤقت سريع الزوال.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- المؤشرات الأربعة الأساسية للشخصية -->
+        <section>
+            <h2 class="section-title">مؤشرات الأداء البشري الأربعة (Attributes)</h2>
+            <p>يتم تصنيف كافة أفعالك ومجهوداتك اليومية وتوزيعها ديناميكياً لتطوير أربعة مؤشرات أساسية تعكس توازنك وإنتاجيتك في الحياة الواقعية:</p>
+            
+            <div class="grid-attributes">
+                <div class="attr-card">
+                    <h3>STR <span class="tag">البدني</span></h3>
+                    <p>يرتفع هذا المؤشر عبر الأنشطة البدنية والالتزام الرياضي، تحسين جودة النوم، وضبط النظام الغذائي الصحي.</p>
+                </div>
+                <div class="attr-card">
+                    <h3>INT <span class="tag">المعرفي</span></h3>
+                    <p>يزداد من خلال تغذية العقل بالدراسة، البرمجة، قراءة الكتب، وحل المشكلات الذهنية والتعلم المستمر.</p>
+                </div>
+                <div class="attr-card">
+                    <h3>SPR <span class="tag">الروحي</span></h3>
+                    <p>يقيس الانضباط الداخلي والهدوء؛ ينمو عبر التأمل، الاستيقاظ المبكر، ومقاومة المشتتات والشهوات الرقمية.</p>
+                </div>
+                <div class="attr-card">
+                    <h3>AGI <span class="tag">التنفيذي</span></h3>
+                    <p>يعبر عن المرونة وسرعة الإنجاز؛ يتطور عبر إنهاء المهام المطلوبة قبل المواعيد المحددة والتغلب على التسويف.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- بوابات التقدم والجدول الزمني -->
+        <section>
+            <h2 class="section-title">بوابات العبور والتقدم (Gates)</h2>
+            <p>التقدم داخل نظام SETVOID ليس عشوائياً، بل ينقسم عبر بوابات إنجاز مغلقة تتطلب شروطاً صارمة لفتحها وضمان انتقالك الفعلي إلى مستويات نضج أعلى في مسيرتك الحياتية والعملية[span_3](start_span)[span_3](end_span):</p>
+            
+            <div class="gate-timeline">
+                <div class="gate-item">
+                    <div class="gate-number">GATE I</div>
+                    <div class="gate-details">
+                        <h4>بوابة الوعي الأولى (The First Gate)</h4>
+                        <p>تستهدف بناء حجر الأساس للإنضباط الفردي، تهيئة نظام تتبع العادات، وكسر حلقة التشتت الرقمي الأولى. (من المقرر فتحها رسمياً في الشهر العاشر - أكتوبر القادم)[span_4](start_span)[span_4](end_span).</p>
+                    </div>
+                </div>
+                <div class="gate-item">
+                    <div class="gate-number">GATE II</div>
+                    <div class="gate-details">
+                        <h4>بوابة الهيكلة والمزامنة</h4>
+                        <p>الانتقال إلى الإدارة المتقدمة للمشاريع والمهام الكبرى (Main Quests)، وربط المؤشرات الأربعة ببعضها لتحقيق توازن إنتاجي صارم ومتكامل.</p>
+                    </div>
+                </div>
+                <div class="gate-item">
+                    <div class="gate-number">GATE III</div>
+                    <div class="gate-details">
+                        <h4>بوابة السيادة الذاتية الفضلى</h4>
+                        <p>مرحلة النضج الكامل والتحكم التام بالوعي الشخصي، حيث يصبح النظام الميكانيكي جزءاً ثابتاً وتلقائياً من أسلوب حياتك اليومي.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الفوتر -->
+        <footer>
+            <p>تم التطوير والبناء كجزء من أبعاد مشاريع شركة <a href="https://accountvoid.github.io/VOID">VOID</a> الفلسفية والتقنية © 2026[span_5](start_span)[span_5](end_span)[span_6](start_span)[span_6](end_span).</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
+
