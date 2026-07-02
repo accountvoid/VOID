@@ -15,6 +15,34 @@
     
     <!-- Styling Framework Base -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Responsive Timeline Fix Layer -->
+    <style>
+        @media (max-width: 768px) {
+            .timeline-container::after {
+                left: 90% !important; /* نقل خط المنتصف إلى الطرف ليناسب العرض العمودي */
+            }
+            .timeline-item {
+                width: 100% !important;
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+                right: auto !important;
+                left: auto !important;
+                float: none !important;
+                display: block !important;
+                box-sizing: border-box !important;
+            }
+            .timeline-item.left, .timeline-item.right {
+                left: 0 !important;
+                right: 0 !important;
+                text-align: right !important;
+            }
+            .timeline-item.left::after, .timeline-item.right::after {
+                left: 90% !important;
+                right: auto !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -148,7 +176,7 @@
             </div>
             <div class="glass-card founder-card">
                 <div class="founder-avatar"></div>
-                <h3 class="en-title">WAVER</h3>
+                <h3 class="en-title">LOGIC</h3>
                 <div class="founder-title">Founder & Lead Developer</div>
                 <p style="color: var(--gray);">المخطط المعماري الرئيسي والمطور الأساسي لكافة الأنظمة البرمجية الفلسفية داخل مظلة VOID. يركز على صياغة وبناء المنصات القائمة على مفاهيم "النظام" و"الوعي" و"الفراغ المستقر" لتقديم أداء حوسبي يليق بالمستقبل المتقدم.</p>
             </div>
@@ -164,9 +192,9 @@
                 &copy; 2026 VOID. جميع الحقوق محفوظة. بناء التطور الرقمي.
             </div>
             <ul class="social-links">
-                <li><a href="#" class="en-title">X</a></li>
-                <li><a href="#" class="en-title">LN</a></li>
-                <li><a href="#" class="en-title">GH</a></li>
+                <li><a href="https://x.com/setvoidOfficial" target="_blank" class="en-title">X</a></li>
+                <li><a href="https://instagram.com/setvoid.official" target="_blank" class="en-title">IG</a></li>
+                <li><a href="https://tiktok.com/@setvoidofficial" target="_blank" class="en-title">TT</a></li>
             </ul>
         </div>
     </footer>
