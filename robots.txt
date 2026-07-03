@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://voidhq.pages.dev/sitemap.xml
+Sitemap: https://voidcy.pages.dev/sitemap.xml
