@@ -23,51 +23,64 @@
             --glass-border: rgba(255, 255, 255, 0.05);
             --text-white: #f5f5f7;
             --text-gray: #8e8e93;
+            --primary-purple: #8b5cf6;
         }
 
+        /* تحسين مظهر الجريد الخاص بالصور ليناسب 10 صور + الأيقونة */
         .screenshot-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
             margin-top: 30px;
         }
         .screenshot-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--glass-border);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            height: 420px;
+            height: auto;
+            padding: 15px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
             position: relative;
-            transition: var(--transition-smooth);
-        }
-        .screenshot-card::after {
-            content: 'PREVIEW CONTROL';
-            font-family: var(--font-title);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.1);
-            letter-spacing: 2px;
-            position: absolute;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .screenshot-card:hover {
             border-color: var(--neon-blue);
             box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
         }
         .screenshot-inner {
-            width: 85%;
-            height: 85%;
-            border: 1px dashed rgba(139, 92, 246, 0.3);
-            border-radius: 6px;
+            width: 100%;
+            border-radius: 8px;
             z-index: 2;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             background: rgba(5, 5, 5, 0.6);
             backdrop-filter: blur(5px);
+            padding: 15px;
+            box-sizing: border-box;
         }
+        .screenshot-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .icon-card .screenshot-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+            border: 2px solid var(--neon-blue);
+        }
+        
         .download-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -85,44 +98,107 @@
             font-weight: 700;
         }
 
-        /* تنسيقات الأقسام الجديدة المضافة */
+        /* تفاصيل وميكانيكيات الـ RPG */
+        .rpg-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .rpg-feature-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        .rpg-feature-card h3 {
+            color: var(--neon-blue);
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 10px;
+        }
+        .rpg-feature-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .rpg-feature-card ul li {
+            color: var(--text-gray);
+            font-size: 14px;
+            margin-bottom: 8px;
+            position: relative;
+            padding-right: 15px;
+        }
+        .rpg-feature-card ul li::before {
+            content: "•";
+            color: var(--neon-purple);
+            position: absolute;
+            right: 0;
+            font-weight: bold;
+        }
+
+        /* تنسيقات الأقسام الجديدة المضافة لـ FAQ التفاعلي */
         .faq-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             margin-top: 30px;
         }
         .faq-item {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 10px;
-            padding: 25px;
+            overflow: hidden;
             transition: all 0.3s ease;
         }
         .faq-item:hover {
             border-color: var(--neon-purple);
-            box-shadow: 0 0 15px rgba(189, 0, 255, 0.1);
         }
         .faq-question {
-            font-size: 14pt;
+            font-size: 15px;
             font-weight: 700;
             color: var(--text-white);
-            margin-bottom: 10px;
+            padding: 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            background: rgba(255,255,255,0.01);
         }
         .faq-question::before {
-            content: "//";
+            content: "// ";
             color: var(--neon-blue);
             font-weight: 800;
         }
+        .faq-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+            color: var(--neon-blue);
+        }
         .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
             color: var(--text-gray);
-            font-size: 11pt;
+            font-size: 14px;
             line-height: 1.7;
+            padding: 0 20px;
+            background: rgba(0,0,0,0.2);
+        }
+        /* كلاس النشاط للـ FAQ عبر المطور */
+        .faq-item.active .faq-answer {
+            max-height: 1000px; /* القيمة كافية للمحتوى */
+            padding: 20px;
+            transition: max-height 0.3s cubic-bezier(1, 0, 1, 0), padding 0.3s ease;
+        }
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
         }
 
+        /* لوحة الدعم المالي عبر الكريبتو */
         .support-panel {
             background: linear-gradient(135deg, rgba(13,13,18,0.8) 0%, rgba(20,20,30,0.8) 100%);
             border: 1px solid rgba(0, 229, 255, 0.15);
@@ -132,6 +208,35 @@
             position: relative;
             overflow: hidden;
         }
+        .crypto-address-container {
+            background: rgba(0,0,0,0.4);
+            border: 1px dashed rgba(0, 229, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 25px auto;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .crypto-label {
+            font-size: 12px;
+            color: var(--neon-blue);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .crypto-address {
+            font-family: monospace;
+            font-size: 15px;
+            color: #fff;
+            word-break: break-all;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 12px;
+            border-radius: 4px;
+            user-select: all;
+        }
+        
         .progress-container {
             margin: 30px 0;
             background: rgba(255, 255, 255, 0.03);
@@ -141,7 +246,7 @@
             position: relative;
         }
         .progress-bar {
-            width: 68%; /* نسبة مئوية كمثال للتقدم السنوي الحالي */
+            width: 68%; 
             height: 16px;
             background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
             border-radius: 50px;
@@ -252,17 +357,80 @@
 
     <main class="container">
         
-        <!-- القسم 1: وصف أكثر للتطبيق وللمنظمة VOID -->
+        <!-- القسم 1: وصف التطبيق والمنظمة VOID بالتفصيل الاحترافي الجديد -->
         <section class="section-padding">
             <div class="section-title">
                 <span>SYSTEM PHILOSOPHY & SYSTEM ARCHITECTS</span>
                 <h2>الهندسة الفلسفية والجهة المطورة VOID</h2>
             </div>
             <div class="glass-card about-brief" style="margin-bottom: 25px;">
+                <h3 style="color: var(--neon-blue); font-size: 20px; margin-bottom: 15px;">ما هو نظام SETVOID؟</h3>
                 <p>إن تطبيق <strong>SETVOID</strong> لا يتبع الأساليب التقليدية أو المكررة الشائعة في تطبيقات تحسين العادات، بل يتعامل برصانة وعمق مع مفهوم الوعي الإنساني. يقوم النظام بتمثيل طاقتك ومجهوداتك الفعلية في الحياة الواقعية على شكل معطيات رقمية وقابلة للقياس والتحليل المستمر، مما يضعك أمام مرآة وعيك الحقيقي وتدمير العشوائية والتسويف بالكامل عبر تفعيل ميكانيكيات الـ RPG المتطورة ومتجر المكافآت الصارم المعزز لقنوات التركيز المستدام.</p>
+                <p style="margin-top: 15px;">يعتمد التطبيق على فكرة أن الإنسان هو الشخصية الرئيسية في حياته، وأن تقدمه لا يقاس بالكلمات أو الأمنيات، بل بالإنجازات الحقيقية التي يحققها يومًا بعد يوم. الهدف النهائي لـ SETVOID ليس إبقاءك داخل التطبيق، بل دفعك للخروج إلى الواقع، وإنجاز مهام حقيقية، ثم العودة لتجد أثر هذا التقدم داخل عالمك الرقمي.</p>
             </div>
             <div class="glass-card about-brief" style="border-right: 3px solid var(--neon-purple); background: rgba(189, 0, 255, 0.01);">
-                <p>تم تصميم وتطوير هذه المنظومة بالكامل بواسطة <strong>شركة VOID SYSTEMS</strong>. وهي منظمة تقنية برمجية متقدمة متخصصة في هندسة الوعي الرقمي وبناء الأنظمة السيبرانية المغلقة التي تهدف إلى إعادة الهيكلة السلوكية للإنسان الباحث عن الانضباط الحديدي المطلق، بعيداً عن الركاكة التصميمية أو التوجهات الطفولية السائدة في برمجيات الإنتاجية المعاصرة.</p>
+                <p>تم تصميم وتطوير هذه المنظومة بالكامل بواسطة <strong>منظمة VOID SYSTEMS</strong>. وهي منظمة تقنية برمجية متقدمة متخصصة في هندسة الوعي الرقمي وبناء الأنظمة السيبرانية المغلقة التي تهدف إلى إعادة الهيكلة السلوكية للإنسان الباحث عن الانضباط الحديدي المطلق، بعيداً عن الركاكة التصميمية أو التوجهات الطفولية السائدة في برمجيات الإنتاجية المعاصرة.</p>
+            </div>
+        </section>
+
+        <!-- قسم ميكانيكيات الـ RPG المتقدمة للتطبيق -->
+        <section class="section-padding">
+            <div class="section-title">
+                <span>SYSTEM MECHANICS (RPG)</span>
+                <h2>المكونات الهيكلية للنظام الميكانيكي</h2>
+            </div>
+            
+            <div class="rpg-features-grid">
+                <div class="rpg-feature-card">
+                    <h3>نظام القوة (Stats System)</h3>
+                    <ul>
+                        <li><strong>STR (القوة البدنية):</strong> ترتفع عند تمارين المقاومة وبناء العضلات والأنشطة البدنية.</li>
+                        <li><strong>INT (القوة العقلية):</strong> ترتفع عند القراءة، الدراسة، التعلم، واكتساب المهارات.</li>
+                        <li><strong>SPR (القوة الروحية):</strong> ترتفع عند الصلاة، التأمل، الانضباط وبناء العادات.</li>
+                        <li><strong>AGI (اللياقة والمرونة):</strong> ترتفع عند الجري، المشي، وتدريبات الكارديو.</li>
+                    </ul>
+                </div>
+
+                <div class="rpg-feature-card">
+                    <h3>هيكلية المهام والمستويات</h3>
+                    <ul>
+                        <li><strong>نظام المستوى (Level System):</strong> كل نشاط يمنحك خبرة (XP) لرفع مستواك وفتح بوابات وميزات أصعب.</li>
+                        <li><strong>المهام الرئيسية:</strong> مهام يومية أساسية تتجدد لجميع المستخدمين بالتزامن لتكون ركيزة التقدم.</li>
+                        <li><strong>المهام الجانبية والكبرى:</strong> تحديات اختيارية طويلة وقصيرة المدى لتوليد ذهب وخبرة إضافية.</li>
+                    </ul>
+                </div>
+
+                <div class="rpg-feature-card">
+                    <h3>نظام البوابات والوحوش (Gate System)</h3>
+                    <ul>
+                        <li><strong>البوابات الافتراضية:</strong> مغامرات وتحديات حقيقية تحتوي على وحوش وزعماء ومكافآت.</li>
+                        <li><strong>رتب البوابات:</strong> متدرجة من الرتبة (E) إلى الرتبة الأسطورية (S) حسب الصعوبة والجوائز.</li>
+                        <li><strong>الزعماء (Bosses):</strong> أقوى الكائنات البرمجية داخل المنظومة التي تتطلب مستويات طاقة عالية لهزيمتها.</li>
+                    </ul>
+                </div>
+
+                <div class="rpg-feature-card">
+                    <h3>المخزون، المتجر والمكافآت</h3>
+                    <ul>
+                        <li><strong>نظام الذهب والخبرة:</strong> العملات المحركة للاقتصاد الداخلي للتطبيق لشراء العناصر وفتح المحتويات.</li>
+                        <li><strong>العناصر (Items):</strong> تشمل لفائف الخبرة والذهب (Scrolls)، الجرعات (Potions)، والمعدات والمفاتيح.</li>
+                        <li><strong>المتجر والمخزون:</strong> واجهات ديناميكية متكاملة لتبادل الذهب الرقمي بالمكافآت وإدارة عناصرك بدقة.</li>
+                    </ul>
+                </div>
+
+                <div class="rpg-feature-card">
+                    <h3>الألقاب والإنجازات والمستقبل</h3>
+                    <ul>
+                        <li><strong>نظام الإنجازات:</strong> مكافآت نوعية عند تخطي عتبات هامة (كقراءة أول كتاب، أو إنهاء 100 مهمة).</li>
+                        <li><strong>الألقاب الشخصية:</strong> ألقاب تعكس رتبتك وعملك مثل (Beginner Hunter) وصولاً إلى (Void Master).</li>
+                        <li><strong>الأنظمة التجريبية القادمة:</strong> العمل جارٍ على إطلاق أنظمة الإيفنتات الدورية، مجتمع اللاعبين، ولوحات الصدارة والمزامنة الفورية للإشعارات.</li>
+                    </ul>
+                </div>
+                
+                <div class="rpg-feature-card" style="border: 1px dashed var(--neon-blue); background: rgba(0, 229, 255, 0.02);">
+                    <h3>لوحة الإدارة المركزية</h3>
+                    <p style="color: var(--text-gray); font-size: 14px; line-height: 1.6;">لوحة تحكم برمجية خارقة للمسؤولين تسمح بإدارة المستخدمين، توليد المهام، تحديث المتجر، إسقاط عناصر البوابات، جدولة الإيفنتات، ومراقبة مؤشرات الأنظمة بالكامل دون الحاجة لتعديل برمي في الأكواد الأساسية.</p>
+                </div>
             </div>
         </section>
 
@@ -291,37 +459,105 @@
             </div>
         </section>
 
+        <!-- قسم لقطات الشاشة المحدث بـ 10 صور + أيقونة التطبيق -->
         <section class="section-padding">
             <div class="section-title">
                 <span>INTERFACE CAPSULES</span>
                 <h2>لقطات من داخل واجهة التحكم</h2>
             </div>
             <div class="screenshot-grid">
-                <div class="screenshot-card">
+                <!-- الأيقونة الأساسية -->
+                <div class="screenshot-card icon-card">
                     <div class="screenshot-inner">
-                        <div class="visual-element" style="width: 60px; height: 60px; margin-bottom: 15px;"></div>
-                        <h4 class="en-title" style="color: var(--white); font-size: 16px; margin-bottom: 5px;">MAIN CORE</h4>
-                        <p style="color: var(--gray); font-size: 12px; text-align: center; padding: 0 10px;">لوحة القيادة المركزية ومراقبة المؤشرات الأربعة (STR, INT, SPR, AGI)</p>
+                        <img src="VOID/image/ICONSETVOID.png" alt="ICONSETVOID" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--neon-blue); font-size: 15px; margin-bottom: 5px;">ICONSETVOID</h4>
+                        <p style="color: var(--text-gray); font-size: 12px; text-align: center;">الأيقونة البرمجية الأساسية للنظام</p>
                     </div>
                 </div>
+                <!-- صورة 1 -->
                 <div class="screenshot-card">
                     <div class="screenshot-inner">
-                        <div class="visual-element" style="width: 60px; height: 60px; margin-bottom: 15px; border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);"></div>
-                        <h4 class="en-title" style="color: var(--neon-blue); font-size: 16px; margin-bottom: 5px;">QUEST LOG</h4>
-                        <p style="color: var(--gray); font-size: 12px; text-align: center; padding: 0 10px;">إدارة المهام الرئيسية واليومية المبرمجة ديناميكياً لتوليد نقاط الـ XP</p>
+                        <img src="VOID/image/SETVOID Image 1.jpg" alt="SETVOID Interface 1" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">CORE LOG I</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">استعراض ميكانيكي لواجهة التحكم الرئيسية</p>
                     </div>
                 </div>
+                <!-- صورة 2 -->
                 <div class="screenshot-card">
                     <div class="screenshot-inner">
-                        <div class="visual-element" style="width: 60px; height: 60px; margin-bottom: 15px; border-color: #fff; box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);"></div>
-                        <h4 class="en-title" style="color: var(--gray); font-size: 16px; margin-bottom: 5px;">VOID SHOP</h4>
-                        <p style="color: var(--gray); font-size: 12px; text-align: center; padding: 0 10px;">منصة استبدال الذهب الرقمي المكتسب بمكافآت تنظيم هرمون الدوبامين</p>
+                        <img src="VOID/image/SETVOID Image 2.jpg" alt="SETVOID Interface 2" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">QUEST LOG II</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">مراقبة وجدولة المهام اليومية المتزامنة</p>
+                    </div>
+                </div>
+                <!-- صورة 3 -->
+                <div class="screenshot-card">
+                    <div class="screenshot-inner">
+                        <img src="VOID/image/SETVOID Image 3.jpg" alt="SETVOID Interface 3" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">GATE ENGINE III</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">بوابات العبور الافتراضية وحساب الصعوبة</p>
+                    </div>
+                </div>
+                <!-- صورة 4 -->
+                <div class="screenshot-card">
+                    <div class="screenshot-inner">
+                        <img src="VOID/image/SETVOID Image 4.jpg" alt="SETVOID Interface 4" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">STATS VISUAL IV</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">تمثيل المؤشرات الحيوية والأبعاد الأربعة</p>
+                    </div>
+                </div>
+                <!-- صورة 5 -->
+                <div class="screenshot-card">
+                    <div class="screenshot-inner">
+                        <img src="VOID/image/SETVOID Image 5.jpg" alt="SETVOID Interface 5" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">VOID SHOP V</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">سوق استبدال الذهب بالعناصر التنشيطية</p>
+                    </div>
+                </div>
+                <!-- صورة 6 -->
+                <div class="screenshot-card">
+                    <div class="screenshot-inner">
+                        <img src="VOID/image/SETVOID Image 6.jpg" alt="SETVOID Interface 6" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">INVENTORY CONTROL VI</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">إدارة حقيبة العناصر واللفائف والمعدات</p>
+                    </div>
+                </div>
+                <!-- صورة 7 -->
+                <div class="screenshot-card">
+                    <div class="screenshot-inner">
+                        <img src="VOID/image/SETVOID Image 7.jpg" alt="SETVOID Interface 7" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">ACHIEVEMENT MATRIX VII</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">منصة رصد الألقاب التاريخية للمستعمل</p>
+                    </div>
+                </div>
+                <!-- صورة 8 -->
+                <div class="screenshot-card">
+                    <div class="screenshot-inner">
+                        <img src="VOID/image/SETVOID Image 8.jpg" alt="SETVOID Interface 8" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">BOSS DUNGEON VIII</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">واجهة مواجهة الزعماء الأقوياء وحساب الـ XP</p>
+                    </div>
+                </div>
+                <!-- صورة 9 -->
+                <div class="screenshot-card">
+                    <div class="screenshot-inner">
+                        <img src="VOID/image/SETVOID Image 9.jpg" alt="SETVOID Interface 9" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">ADMIN PANEL IX</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">لوحة التحكم الشاملة بقواعد معطيات السيستم</p>
+                    </div>
+                </div>
+                <!-- صورة 10 -->
+                <div class="screenshot-card">
+                    <div class="screenshot-inner">
+                        <img src="VOID/image/SETVOID Image 10.jpg" alt="SETVOID Interface 10" class="screenshot-img">
+                        <h4 class="en-title" style="color: var(--white); font-size: 14px; margin-bottom: 5px;">CRYPTO GATEWAY X</h4>
+                        <p style="color: var(--text-gray); font-size: 11px; text-align: center;">بوابة التحقق المالي وتوسيع السيرفرات</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- القسم 2: أسئلة شائعة عن التطبيق -->
+        <!-- القسم 2: أسئلة شائعة تفاعلية موسعة مع أسهم -->
         <section class="section-padding">
             <div class="section-title">
                 <span>SYSTEM ANALYSIS</span>
@@ -329,21 +565,29 @@
             </div>
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question">ما الفارق الجوهري بين SETVOID وأي تطبيق آخر لبناء العادات؟</div>
-                    <div class="faq-answer">التطبيقات الأخرى تعتمد على أساليب التحفيز الطفولية والمكافآت الوهمية. نظام SETVOID يعتمد الفلسفة البرمجية الصارمة، حيث يقسم مسيرتك إلى بوابات عبور (Gates) محكومة بقوانين لا يمكن التلاعب بها، مما يجبر وعيك البشري على المواجهة والامتثال للسيستم.</div>
+                    <div class="faq-question">ما الفارق الجوهري بين SETVOID وأي تطبيق آخر لبناء العادات؟ <span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">التطبيقات الأخرى تعتمد على أساليب التحفيز الطفولية والمكافآت الوهمية. نظام SETVOID يعتمد الفلسفة البرمجية الصارمة، حيث يقسم مسيرتك إلى بوابات عبور (Gates) ومؤشرات ميكانيكية حقيقية محكومة بقوانين لا يمكن التلاعب بها، مما يجبر وعيك البشري على المواجهة والامتثال الكامل للسيستم دون زيف.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">كيف تعمل ميكانيكية الـ RPG داخل النظام؟</div>
-                    <div class="faq-answer">يتم ترجمة مجهودك الواقعي اليومي (دراسة، تدريب، عمل عميق) إلى نقاط خبرة (XP) ميكانيكية ترفع من أبعاد شخصيتك الأربعة، وتحصل في المقابل على ذهب رقمي يمكنك صرفه في متجر الدوبامين الخاص بك للتحكم التام في رغباتك.</div>
+                    <div class="faq-question">كيف تعمل ميكانيكية الـ RPG داخل النظام؟ <span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">يتم ترجمة مجهودك الواقعي اليومي (دراسة، تدريب، عمل عميق) إلى نقاط خبرة (XP) ميكانيكية ترفع من أبعاد شخصيتك الأربعة الأساسية (STR, INT, SPR, AGI)، وتحصل في المقابل على ذهب رقمي يمكنك صرفه في متجر الدوبامين الخاص بك لشراء عناصر أداء ممتازة تعزز من تركيزك.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">هل البيانات التي أقوم بإدخالها مشفرة وآمنة؟</div>
-                    <div class="faq-answer">نعم، تتبنى منظمة VOID معايير أمنية متطورة للغاية تعتمد التشفير المحلي والسحابي الآمن لمنع تتبع أنشطتك أو تحليل بيانات وعيك من أي أطراف خارجية عشوائية.</div>
+                    <div class="faq-question">هل البيانات التي أقوم بإدخالها مشفرة وآمنة؟ <span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">نعم، تتبنى منظمة VOID معايير أمنية متطورة للغاية تعتمد التشفير المحلي والسحابي الآمن لمنع تتبع أنشطتك أو تحليل بيانات وعيك السلوكي من أي أطراف خارجية أو عشوائية.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">لماذا لا توجد بعض الأنظمة (كالإيفنتات والمجتمع) في النسخ التجريبية؟ <span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">تلتزم المنظمة بإطلاق الميكانيكيات الأساسية للانضباط الفردي أولاً للتأكد من استقرار النواة البرمجية الحاكمة والصلبة، وسيتم تفعيل أنظمة التنافس الجماعي، لوحات الصدارة، وإيفنتات الـ World Boss تدريجياً في التحديثات الكبرى التالية.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">كيف تساهم رتب البوابات (Gates) في تدمير التسويف؟ <span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">تتدرج رتب البوابات من E إلى S. كلما ارتفعت الرتبة، زادت متطلبات الالتزام اليومي والجهد البدني أو الفكري المطلوب لإغلاقها. التراجع أو الفشل يعني مواجهة وحوش برتب أعلى وخسارة موارد هامة، مما يخلق ضغطاً نفسياً إيجابياً يدفعك للتنفيذ الفوري لمهامك الواقعية.</div>
                 </div>
             </div>
         </section>
 
-        <!-- القسم 3: دعم التطبيق مع هدف سنوي يتجدد وشريط تقدم تقني -->
+        <!-- القسم 3: دعم التطبيق والمحفظة المشفرة USDT TRC20 -->
         <section class="section-padding">
             <div class="section-title">
                 <span>CORE SUSTAINABILITY</span>
@@ -351,9 +595,16 @@
             </div>
             <div class="support-panel">
                 <div class="year-indicator" id="current-year-tag">ANNUAL GOAL: 2026</div>
-                <h3 style="font-size: 18px; margin-bottom: 10px; font-weight: 700;">مؤشر ترقية خوادم VOID السنوية</h3>
-                <p style="color: var(--text-gray); font-size: 13px; max-width: 600px; margin: 0 auto;">نحن نؤمن بالاستقلالية التامة والتطوير الخالي من الإعلانات المشتتة. يساهم الدعم المستمر في تعزيز كفاءة قواعد البيانات وتوسيع نطاق الخوادم الميكانيكية لضمان استمرارية تشغيل النظام دون انقطاع.</p>
+                <h3 style="font-size: 18px; margin-bottom: 10px; font-weight: 700;">مؤشر ترقية خوادم VOID السنوية وتطوير الأداء</h3>
+                <p style="color: var(--text-gray); font-size: 13px; max-width: 600px; margin: 0 auto;">نحن نؤمن بالاستقلالية التامة والتطوير الخالي من الإعلانات المشتتة للوعي البشري. يساهم الدعم المستمر في تعزيز كفاءة قواعد البيانات وتوسيع نطاق الخوادم الميكانيكية لضمان استمرارية تشغيل النظام دون انقطاع.</p>
                 
+                <!-- حاوية عنوان محفظة التشفير المضافة -->
+                <div class="crypto-address-container">
+                    <span class="crypto-label">يمكنك دعم استمرارية المنظومة عبر عنوان USDT (TRC20) التالي:</span>
+                    <span class="crypto-address">TSYTmzoXzdw3QPNW5gVCYRH2om1VB9qXhM</span>
+                    <span style="color: var(--text-gray); font-size: 11px;">اضغط ضغطاً مطولاً على العنوان لنسخه بدقة</span>
+                </div>
+
                 <div class="progress-container">
                     <div class="progress-bar" id="annual-progress"></div>
                 </div>
@@ -362,7 +613,6 @@
                     <span>معدل التقدم المكتمل: <span style="color: var(--neon-blue);" id="progress-percentage">68%</span></span>
                     <span>الهدف السنوي المستهدف: 100%</span>
                 </div>
-                <a href="#" class="btn btn-primary" style="margin-top: 20px; display: inline-block; padding: 12px 35px;">دعم منظومة الوعي الخالص</a>
             </div>
         </section>
 
@@ -382,14 +632,14 @@
                     <div class="download-icon" style="color: var(--primary-purple);">MOBILE APP</div>
                     <h3 style="margin-bottom: 10px; font-size: 20px;">تطبيق الهواتف الذكية</h3>
                     <p style="color: var(--gray); font-size: 14px; margin-bottom: 25px;">تثبيت حزمة النظام المشفرة على أجهزة المحمول لضمان تتبع العادات وتلقي التنبيهات الميكانيكية اللحظية وإدارة بوابات العبور بدقة.</p>
-                    <a href="#" class="btn btn-secondary" style="width: 100%; cursor: not-allowed; opacity: 0.6;">قيد الفحص والجدول في المتاجر</a>
+                    <a href="#" class="btn btn-secondary" style="width: 100%; cursor: not-allowed; opacity: 0.6;">قيد الفحص والجدولة في المتاجر</a>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- القسم 4: مواقع التواصل الاجتماعي للتطبيق بتصميم احترافي -->
+    <!-- القسم 4: شبكة التواصل الاجتماعي لـ VOID -->
     <footer class="footer">
         <div class="container footer-content">
             <a href="https://voidcy.pages.dev" class="footer-logo">VOID</a>
@@ -409,10 +659,27 @@
 
     <script src="main.js"></script>
     <script>
-        // سكربت ذكي جبّار لتحديث السنة والهدف تلقائياً في المتصفح كل عام
+        // سكربت ذكي لتحديث السنة تلقائياً
         const currentYear = new Date().getFullYear();
         document.getElementById('current-year-tag').innerText = `ANNUAL GOAL: ${currentYear}`;
         document.getElementById('footer-year').innerText = currentYear;
+
+        // سكربت التحكم في فتح وإغلاق الأسئلة الشائعة FAQ بتأثير سلس
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                
+                // إغلاق أي سؤال مفتوح آخر (اختياري، إذا كنت تريد فتح سؤال واحد فقط في كل مرة)
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+
+                // تبديل الكلاس الخاص بالسؤال الحالي
+                item.classList.toggle('active');
+            });
+        });
     </script>
 </body>
 </html>
