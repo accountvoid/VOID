@@ -15,6 +15,16 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
+        /* التنسيقات الإضافية للتصميم الجبّار والمستقبلي */
+        :root {
+            --neon-blue: #00e5ff;
+            --neon-purple: #bd00ff;
+            --glass-bg: rgba(13, 13, 18, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --text-white: #f5f5f7;
+            --text-gray: #8e8e93;
+        }
+
         .screenshot-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -74,9 +84,132 @@
             margin-bottom: 15px;
             font-weight: 700;
         }
+
+        /* تنسيقات الأقسام الجديدة المضافة */
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .faq-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        .faq-item:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 15px rgba(189, 0, 255, 0.1);
+        }
+        .faq-question {
+            font-size: 14pt;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .faq-question::before {
+            content: "//";
+            color: var(--neon-blue);
+            font-weight: 800;
+        }
+        .faq-answer {
+            color: var(--text-gray);
+            font-size: 11pt;
+            line-height: 1.7;
+        }
+
+        .support-panel {
+            background: linear-gradient(135deg, rgba(13,13,18,0.8) 0%, rgba(20,20,30,0.8) 100%);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-container {
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            padding: 4px;
+            position: relative;
+        }
+        .progress-bar {
+            width: 68%; /* نسبة مئوية كمثال للتقدم السنوي الحالي */
+            height: 16px;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+            transition: width 1s ease-in-out;
+        }
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11pt;
+            color: var(--text-gray);
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        .year-indicator {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 10pt;
+            color: var(--neon-blue);
+            font-weight: 700;
+        }
+
+        .social-grid-footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            padding: 12px 30px;
+            border-radius: 6px;
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 11pt;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .social-btn:hover {
+            background: var(--text-white);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        .social-btn.web-link {
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+        .social-btn.web-link:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
         @media (max-width: 768px) {
             .screenshot-grid { grid-template-columns: 1fr; }
             .download-grid { grid-template-columns: 1fr; }
+            .social-grid-footer { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -88,7 +221,7 @@
 
     <nav class="navbar">
         <div class="logo-container">
-            <a href="index.html" class="logo">VOID</a>
+            <a href="https://voidcy.pages.dev" class="logo">VOID</a>
         </div>
         <div class="menu-toggle">
             <span></span>
@@ -96,10 +229,10 @@
             <span></span>
         </div>
         <ul class="nav-links">
-            <li><a href="index.html">الرئيسية</a></li>
-            <li><a href="about.html">عن VOID</a></li>
-            <li class="active"><a href="projects.html">المشاريع</a></li>
-            <li><a href="partners.html">الشركاء</a></li>
+            <li><a href="https://voidcy.pages.dev">الرئيسية</a></li>
+            <li><a href="#">عن VOID</a></li>
+            <li class="active"><a href="#">المشاريع</a></li>
+            <li><a href="#">الشركاء</a></li>
         </ul>
     </nav>
 
@@ -119,13 +252,17 @@
 
     <main class="container">
         
+        <!-- القسم 1: وصف أكثر للتطبيق وللمنظمة VOID -->
         <section class="section-padding">
             <div class="section-title">
-                <span>SYSTEM PHILOSOPHY</span>
-                <h2>الوصف الفلسفي والهيكلي</h2>
+                <span>SYSTEM PHILOSOPHY & SYSTEM ARCHITECTS</span>
+                <h2>الهندسة الفلسفية والجهة المطورة VOID</h2>
             </div>
-            <div class="glass-card about-brief">
-                <p>إن تطبيق SETVOID لا يتبع الأساليب التقليدية أو المكررة الشائعة في تطبيقات تحسين العادات، بل يتعامل برصانة وعمق مع مفهوم الوعي الإنساني. يقوم النظام بتمثيل طاقتك ومجهوداتك الفعلية في الحياة الواقعية على شكل معطيات رقمية وقابلة للقياس والتحليل المستمر، مما يضعك أمام مرآة وعيك الحقيقي وتدمير العشوائية والتسويف بالكامل عبر تفعيل ميكانيكيات الـ RPG المتطورة ومتجر المكافآت الصارم المعزز لقنوات التركيز المستدام.</p>
+            <div class="glass-card about-brief" style="margin-bottom: 25px;">
+                <p>إن تطبيق <strong>SETVOID</strong> لا يتبع الأساليب التقليدية أو المكررة الشائعة في تطبيقات تحسين العادات، بل يتعامل برصانة وعمق مع مفهوم الوعي الإنساني. يقوم النظام بتمثيل طاقتك ومجهوداتك الفعلية في الحياة الواقعية على شكل معطيات رقمية وقابلة للقياس والتحليل المستمر، مما يضعك أمام مرآة وعيك الحقيقي وتدمير العشوائية والتسويف بالكامل عبر تفعيل ميكانيكيات الـ RPG المتطورة ومتجر المكافآت الصارم المعزز لقنوات التركيز المستدام.</p>
+            </div>
+            <div class="glass-card about-brief" style="border-right: 3px solid var(--neon-purple); background: rgba(189, 0, 255, 0.01);">
+                <p>تم تصميم وتطوير هذه المنظومة بالكامل بواسطة <strong>شركة VOID SYSTEMS</strong>. وهي منظمة تقنية برمجية متقدمة متخصصة في هندسة الوعي الرقمي وبناء الأنظمة السيبرانية المغلقة التي تهدف إلى إعادة الهيكلة السلوكية للإنسان الباحث عن الانضباط الحديدي المطلق، بعيداً عن الركاكة التصميمية أو التوجهات الطفولية السائدة في برمجيات الإنتاجية المعاصرة.</p>
             </div>
         </section>
 
@@ -184,6 +321,51 @@
             </div>
         </section>
 
+        <!-- القسم 2: أسئلة شائعة عن التطبيق -->
+        <section class="section-padding">
+            <div class="section-title">
+                <span>SYSTEM ANALYSIS</span>
+                <h2>الأسئلة الشائعة حول المنظومة</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">ما الفارق الجوهري بين SETVOID وأي تطبيق آخر لبناء العادات؟</div>
+                    <div class="faq-answer">التطبيقات الأخرى تعتمد على أساليب التحفيز الطفولية والمكافآت الوهمية. نظام SETVOID يعتمد الفلسفة البرمجية الصارمة، حيث يقسم مسيرتك إلى بوابات عبور (Gates) محكومة بقوانين لا يمكن التلاعب بها، مما يجبر وعيك البشري على المواجهة والامتثال للسيستم.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">كيف تعمل ميكانيكية الـ RPG داخل النظام؟</div>
+                    <div class="faq-answer">يتم ترجمة مجهودك الواقعي اليومي (دراسة، تدريب، عمل عميق) إلى نقاط خبرة (XP) ميكانيكية ترفع من أبعاد شخصيتك الأربعة، وتحصل في المقابل على ذهب رقمي يمكنك صرفه في متجر الدوبامين الخاص بك للتحكم التام في رغباتك.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">هل البيانات التي أقوم بإدخالها مشفرة وآمنة؟</div>
+                    <div class="faq-answer">نعم، تتبنى منظمة VOID معايير أمنية متطورة للغاية تعتمد التشفير المحلي والسحابي الآمن لمنع تتبع أنشطتك أو تحليل بيانات وعيك من أي أطراف خارجية عشوائية.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- القسم 3: دعم التطبيق مع هدف سنوي يتجدد وشريط تقدم تقني -->
+        <section class="section-padding">
+            <div class="section-title">
+                <span>CORE SUSTAINABILITY</span>
+                <h2>دعم وتوسيع البنية التحتية للمنظومة</h2>
+            </div>
+            <div class="support-panel">
+                <div class="year-indicator" id="current-year-tag">ANNUAL GOAL: 2026</div>
+                <h3 style="font-size: 18px; margin-bottom: 10px; font-weight: 700;">مؤشر ترقية خوادم VOID السنوية</h3>
+                <p style="color: var(--text-gray); font-size: 13px; max-width: 600px; margin: 0 auto;">نحن نؤمن بالاستقلالية التامة والتطوير الخالي من الإعلانات المشتتة. يساهم الدعم المستمر في تعزيز كفاءة قواعد البيانات وتوسيع نطاق الخوادم الميكانيكية لضمان استمرارية تشغيل النظام دون انقطاع.</p>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="annual-progress"></div>
+                </div>
+                
+                <div class="progress-stats">
+                    <span>معدل التقدم المكتمل: <span style="color: var(--neon-blue);" id="progress-percentage">68%</span></span>
+                    <span>الهدف السنوي المستهدف: 100%</span>
+                </div>
+                <a href="#" class="btn btn-primary" style="margin-top: 20px; display: inline-block; padding: 12px 35px;">دعم منظومة الوعي الخالص</a>
+            </div>
+        </section>
+
         <section class="section-padding">
             <div class="section-title">
                 <span>SECURE DOWNLOAD</span>
@@ -194,7 +376,7 @@
                     <div class="download-icon">WEB ENGINE</div>
                     <h3 style="margin-bottom: 10px; font-size: 20px;">الوصول عبر السحابة مباشرة</h3>
                     <p style="color: var(--gray); font-size: 14px; margin-bottom: 25px;">قم بفتح نظام التحكم وإدارة حسابك ومزامنة بياناتك محلياً وسحابياً من خلال أي متصفح متقدم ومقاوم للتحليل العشوائي.</p>
-                    <a href="https://accountvoid.github.io/VOID" class="btn btn-primary" style="width: 100%;">تشغيل الواجهة السحابية</a>
+                    <a href="https://voidcy.pages.dev" class="btn btn-primary" style="width: 100%;">تشغيل الواجهة السحابية</a>
                 </div>
                 <div class="glass-card download-platform">
                     <div class="download-icon" style="color: var(--primary-purple);">MOBILE APP</div>
@@ -207,20 +389,30 @@
 
     </main>
 
+    <!-- القسم 4: مواقع التواصل الاجتماعي للتطبيق بتصميم احترافي -->
     <footer class="footer">
         <div class="container footer-content">
-            <a href="index.html" class="footer-logo">VOID</a>
-            <div class="copyright">
-                &copy; 2026 VOID. جميع الحقوق محفوظة. بناء التطور الرقمي.
+            <a href="https://voidcy.pages.dev" class="footer-logo">VOID</a>
+            
+            <div class="social-grid-footer">
+                <a href="https://www.instagram.com/setvoidofficial" class="social-btn" target="_blank">انستغرام : @setvoidofficial</a>
+                <a href="https://www.tiktok.com/@setvoidofficial" class="social-btn" target="_blank">تيك توك : @setvoidofficial</a>
+                <a href="https://x.com/setvoidofficial" class="social-btn" target="_blank">X : @setvoidofficial</a>
+                <a href="https://voidcy.pages.dev" class="social-btn web-link" target="_blank">الموقع الرسمي للمنصة</a>
             </div>
-            <ul class="social-links">
-                <li><a href="#" class="en-title">X</a></li>
-                <li><a href="#" class="en-title">LN</a></li>
-                <li><a href="#" class="en-title">GH</a></li>
-            </ul>
+
+            <div class="copyright">
+                &copy; <span id="footer-year">2026</span> VOID SYSTEMS. جميع الحقوق محفوظة. بناء التطور الرقمي والتحكم الفلسفي بالوعي.
+            </div>
         </div>
     </footer>
 
     <script src="main.js"></script>
+    <script>
+        // سكربت ذكي جبّار لتحديث السنة والهدف تلقائياً في المتصفح كل عام
+        const currentYear = new Date().getFullYear();
+        document.getElementById('current-year-tag').innerText = `ANNUAL GOAL: ${currentYear}`;
+        document.getElementById('footer-year').innerText = currentYear;
+    </script>
 </body>
 </html>
