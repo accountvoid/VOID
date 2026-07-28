@@ -1,0 +1,37 @@
+[
+  {
+    "platform": "تيك توك",
+    "current": 54,
+    "launchTarget": 500,
+    "weeklyTarget": 37,
+    "color": "teal"
+  },
+  {
+    "platform": "إنستغرام",
+    "current": 8,
+    "launchTarget": 300,
+    "weeklyTarget": 24,
+    "color": "pink"
+  },
+  {
+    "platform": "X",
+    "current": 1,
+    "launchTarget": 150,
+    "weeklyTarget": 12,
+    "color": "violet"
+  },
+  {
+    "platform": "Reddit (تفاعل/متابعة)",
+    "current": 0,
+    "launchTarget": 100,
+    "weeklyTarget": 8,
+    "color": "amber"
+  },
+  {
+    "platform": "Discord",
+    "current": 268,
+    "launchTarget": 800,
+    "weeklyTarget": 44,
+    "color": "teal"
+  }
+]

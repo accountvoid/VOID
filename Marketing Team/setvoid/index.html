@@ -193,6 +193,22 @@
   .goal-item b{display:block;font-size:20px;font-weight:900;color:var(--teal);}
   .goal-item span{font-size:11px;color:var(--muted);line-height:1.5;display:block;margin-top:4px;}
 
+  /* --- platform growth card --- */
+  #growth-card{
+    border:1px solid var(--violet);border-radius:18px;
+    background:linear-gradient(180deg, var(--violet-dim), rgba(16,18,32,0.5));
+    padding:20px 22px;margin-bottom:24px;
+  }
+  #growth-card h3{margin:0 0 4px;font-size:15px;font-weight:900;}
+  #growth-card .gr-sub{color:var(--muted);font-size:12px;margin-bottom:14px;}
+  .growth-grid{display:flex;flex-direction:column;gap:12px;}
+  .growth-item{background:rgba(6,7,12,0.35);border:1px solid rgba(140,107,255,0.25);border-radius:12px;padding:12px 14px;}
+  .growth-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+  .growth-top .gname{font-weight:700;font-size:13.5px;}
+  .growth-top .gnums{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);}
+  .growth-top .gnums b{color:var(--ink);font-weight:700;}
+  .growth-week{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:6px;}
+
   /* --- team stats dashboard --- */
   #stats-dash{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
   @media (max-width:760px){#stats-dash{grid-template-columns:repeat(2,1fr);}}
@@ -416,6 +432,7 @@
 
     <div id="updates-banner"></div>
     <div id="goal-card"></div>
+    <div id="growth-card"></div>
     <div id="stats-dash"></div>
     <div id="profile-card"></div>
 
@@ -514,7 +531,8 @@ const DATA_PATHS = {
   team:     './data/team.json',
   tasks:    './data/tasks.json',
   videos:   './data/video-schedule.json',
-  workflow: './data/workflow.json'
+  workflow: './data/workflow.json',
+  growth:   './data/platform-growth.json'
 };
 
 /* بيانات افتراضية تُستخدم فقط إذا تعذّر تحميل الملف المقابل من /data */
@@ -529,7 +547,8 @@ const FALLBACKS = {
   team: [],
   tasks: [],
   videos: [],
-  workflow: []
+  workflow: [],
+  growth: []
 };
 
 const UPDATE_STATUSES = ['جديد','قيد التحضير','جاهز للتصوير','تم التصوير','تم النشر'];
@@ -573,14 +592,15 @@ const STATE = {
   tasks:[], tasksOk:true,
   videos:[], videosOk:true,
   workflow:[], workflowOk:true,
+  growth:[], growthOk:true,
   phase:'Pre-Launch'
 };
 
 async function bootstrap(){
-  const [project, goals, updates, ideas, achievements, kpis, review, team, tasks, videos, workflow] = await Promise.all([
+  const [project, goals, updates, ideas, achievements, kpis, review, team, tasks, videos, workflow, growth] = await Promise.all([
     loadJSON('project'), loadJSON('goals'), loadJSON('updates'), loadJSON('ideas'),
     loadJSON('achievements'), loadJSON('kpis'), loadJSON('review'), loadJSON('team'),
-    loadJSON('tasks'), loadJSON('videos'), loadJSON('workflow')
+    loadJSON('tasks'), loadJSON('videos'), loadJSON('workflow'), loadJSON('growth')
   ]);
 
   STATE.project = project.data; STATE.projectOk = project.ok;
@@ -594,6 +614,7 @@ async function bootstrap(){
   STATE.tasks = tasks.data || []; STATE.tasksOk = tasks.ok;
   STATE.videos = videos.data || []; STATE.videosOk = videos.ok;
   STATE.workflow = workflow.data || []; STATE.workflowOk = workflow.ok;
+  STATE.growth = growth.data || []; STATE.growthOk = growth.ok;
 
   STATE.peopleOrder = STATE.team.map(p=>p.id);
   STATE.team.forEach(p=>{ STATE.peopleById[p.id] = p; });
@@ -726,6 +747,7 @@ function selectPerson(id){
   renderWeek(p, id);
   renderVideoSchedule();
   renderGoals();
+  renderGrowth();
   renderUpdates(id);
   renderIdeas();
   renderAchievements();
@@ -743,6 +765,7 @@ function renderProfile(p, id){
   el.style.setProperty('--cd', `var(--${p.color}-dim)`);
   const entries = STATE.tasks.map(d=>d.entries[id]).filter(Boolean);
   const mainDays = entries.filter(e=>e.entryStatus==='main').length;
+  const strategyDays = entries.filter(e=>e.entryStatus==='strategy').length;
   const restDays = entries.filter(e=>e.entryStatus==='rest').length;
   const kpiList = (STATE.kpis && STATE.kpis[id]) || [];
   const kpiNote = STATE.kpisOk ? '' : fallbackNote('data/team-kpis.json');
@@ -756,6 +779,7 @@ function renderProfile(p, id){
         <div class="bio">${p.bio}</div>
         <div class="stats">
           <div class="stat"><b>${mainDays}</b>أيام مهمة رئيسية</div>
+          ${strategyDays ? `<div class="stat"><b>${strategyDays}</b>أيام استراتيجية</div>` : ''}
           <div class="stat"><b>${restDays}</b>أيام راحة</div>
           <div class="stat"><b>${p.focus}</b>تركيزك الأساسي</div>
         </div>
@@ -822,7 +846,7 @@ function renderWeek(p, id){
       <div class="progress-track"><div class="progress-fill" style="width:${entry.progress||0}%;background:var(--${statusColor})"></div></div>`;
     card.innerHTML = `
       <div class="dayname">${day.name}<span>${day.code}</span></div>
-      <div class="tag">${rest ? 'راحة' : (entry.entryStatus==='main' ? 'مهمة رئيسية' : 'دعم خفيف')}</div>
+      <div class="tag">${rest ? 'راحة' : entry.entryStatus==='main' ? 'مهمة رئيسية' : entry.entryStatus==='strategy' ? 'استراتيجية' : 'دعم خفيف'}</div>
       <div class="mid">
         <div class="short">${entry.short}${entry.platform ? ` — <b>${entry.platform}</b>` : ''}</div>
         ${metaRow}
@@ -866,6 +890,35 @@ function renderGoals(){
     <h3>🎯 هدف الأسبوع${STATE.phase === 'Post-Launch' ? ' — ما بعد الإطلاق' : ' — قبل الإطلاق'}</h3>
     ${note}
     <div class="goal-grid">${items || '<span style="color:var(--muted);font-size:13px;">لا توجد أهداف مضافة حاليًا.</span>'}</div>
+  `;
+}
+
+function renderGrowth(){
+  const el = document.getElementById('growth-card');
+  const note = STATE.growthOk ? '' : fallbackNote('data/platform-growth.json');
+  if(!STATE.growth.length){
+    el.innerHTML = `<h3>📈 نمو المنصات نحو الإطلاق</h3>${note}<span style="color:var(--muted);font-size:13px;">لا توجد بيانات نمو مضافة حاليًا.</span>`;
+    return;
+  }
+  const items = STATE.growth.map(g=>{
+    const pct = g.launchTarget ? Math.min(100, Math.round((g.current / g.launchTarget) * 100)) : 0;
+    const color = g.color || 'violet';
+    return `
+      <div class="growth-item">
+        <div class="growth-top">
+          <span class="gname">${g.platform}</span>
+          <span class="gnums"><b>${g.current}</b> ← الحالي · هدف الإطلاق: <b>${g.launchTarget}</b> (${pct}%)</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:var(--${color})"></div></div>
+        ${g.weeklyTarget ? `<div class="growth-week">🎯 هدف نمو هذا الأسبوع: +${g.weeklyTarget}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+  el.innerHTML = `
+    <h3>📈 نمو المنصات نحو الإطلاق</h3>
+    <div class="gr-sub">تتبع أسبوعي حقيقي لكل منصة مقابل هدف يوم الإطلاق (19 أكتوبر 2026)</div>
+    ${note}
+    <div class="growth-grid">${items}</div>
   `;
 }
 
@@ -983,13 +1036,17 @@ function taskFields(entry){
   if(isRest(entry)){
     return { goal:'', reason:'', expected:'', notes:'يوم راحة، لا أهداف محددة لهذا اليوم.' };
   }
-  const goal = `تنفيذ ونشر: ${entry.title}`;
+  const goal = entry.entryStatus === 'strategy' ? `متابعة وإدارة: ${entry.title}` : `تنفيذ ونشر: ${entry.title}`;
   const reason = entry.entryStatus === 'main'
     ? 'هذه مهمة رئيسية ليوم اليوم — تعتمد عليها بقية مهام الفريق ومحتوى الأسبوع.'
+    : entry.entryStatus === 'strategy'
+    ? 'مهمة قيادية/استراتيجية — تحدد اتجاه الفريق وتؤثر على قرارات الأسبوع القادم (تخطيط، شراكات، تحليل أداء).'
     : 'مهمة دعم تكمّل المهمة الرئيسية لنفس اليوم وتساعد في إنجازها بجودة أعلى.';
   const expected = entry.platform ? `تفاعل جيد ومشاهدات مرتفعة على ${entry.platform}` : 'إنجاز المهمة ضمن الجدول المحدد لهذا اليوم';
   const notes = entry.entryStatus === 'main'
     ? 'مهمة أساسية لهذا اليوم — تحتاج اعتماد صلاح قبل النشر النهائي.'
+    : entry.entryStatus === 'strategy'
+    ? 'قرارات هذه المهمة تُبنى عليها أولويات بقية الفريق — توثّق نتائجها ليستفيد منها الجميع.'
     : 'مهمة دعم — تنسيق مباشر مع الزميل المسؤول عن المهمة الرئيسية في نفس اليوم.';
   return { goal, reason, expected, notes };
 }
@@ -1004,7 +1061,7 @@ function openDayModal(p, day, entry){
   const modal = document.getElementById('modal');
   modal.style.setProperty('--c', `var(--${color})`);
   modal.style.setProperty('--cd', `var(--${color}-dim)`);
-  document.getElementById('m-tag').textContent = rest ? 'راحة' : (entry.entryStatus==='main' ? 'مهمة رئيسية' : 'دعم خفيف');
+  document.getElementById('m-tag').textContent = rest ? 'راحة' : entry.entryStatus==='main' ? 'مهمة رئيسية' : entry.entryStatus==='strategy' ? 'استراتيجية' : 'دعم خفيف';
 
   const prioEl = document.getElementById('m-prio');
   if(!rest && entry.priority){
