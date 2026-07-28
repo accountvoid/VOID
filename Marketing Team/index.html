@@ -1,66 +1,114 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VOID — مركز فرق التسويق</title>
-<meta name="robots" content="noindex, nofollow">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOID — مركز فرق التسويق</title>
+    
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="شركة VOID للحلول التقنية المستقبلية المتقدمة - مركز فرق التسويق">
+    
+    <!-- Styling Framework Base -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
 
-  <div class="brand">
-    <div class="mark"></div>
-    <div>
-      <h1>VOID</h1>
-      <div class="sub">مركز فرق التسويق — Marketing Team Hub</div>
-    </div>
-  </div>
-
-  <div class="intro">
-    <h2>اختر التطبيق</h2>
-    <p>هذه لوحة داخلية خاصة بفرق التسويق والدعم في شركة VOID. اختر التطبيق الذي تعمل عليه للدخول إلى جدول فريقه الأسبوعي، مهامه، ومؤشرات أدائه.</p>
-  </div>
-
-  <div class="apps-grid">
-
-    <!-- SETVOID: active -->
-    <a class="app-card active" href="./setvoid/index.html">
-      <div class="row">
-        <div class="icon">SV</div>
-        <div>
-          <div class="name">SETVOID</div>
-          <div class="status">● نشط — لوحة متاحة</div>
-        </div>
-      </div>
-      <div class="desc">المنصة الأم لإدارة المهام والعادات. لوحة فريق التسويق والدعم الأسبوعية: المهام، الجدول، الأفكار، ومؤشرات الأداء.</div>
-      <div class="go">فتح اللوحة →</div>
-    </a>
-
-    <!-- FINVOID: placeholder for future app -->
-    <div class="app-card disabled">
-      <div class="row">
-        <div class="icon">FV</div>
-        <div>
-          <div class="name">FINVOID</div>
-          <div class="status">○ لم تُضَف اللوحة بعد</div>
-        </div>
-      </div>
-      <div class="desc">لوحة فريق تسويق FINVOID ستُضاف لاحقًا هنا بنفس النظام المتّبع مع SETVOID.</div>
-      <div class="go">قريبًا</div>
+    <!-- Loading Screen System Architecture -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader-pulse"></div>
     </div>
 
-  </div>
+    <!-- Fixed Interactive Glassmorphism Navigation Structure -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo">VOID</a>
+        </div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="about.html">عن VOID</a></li>
+            <li><a href="projects.html">المشاريع</a></li>
+            <li><a href="partners.html">الشركاء</a></li>
+        </ul>
+    </nav>
 
-  <div class="note">
-    لإضافة تطبيق جديد: أنشئ مجلدًا باسم التطبيق داخل "Marketing Team/" يحتوي على index.html
-    ومجلد data/ فرعي، ثم فعّل بطاقته في هذا الملف. راجع README.md لتفاصيل الخطوات الكاملة.
-  </div>
+    <!-- Cosmic Engine Rendering Canvases -->
+    <canvas id="cosmic-bg"></canvas>
+    <div class="nebula-overlay"></div>
 
-  <footer>VOID · Internal Marketing Ops</footer>
-</div>
+    <!-- Main Container -->
+    <header class="page-hero">
+        <h1 class="en-title">MARKETING HUB</h1>
+        <p class="hero-desc">مركز فرق التسويق — Marketing Team Hub</p>
+    </header>
+
+    <main class="container">
+        
+        <section class="section-padding">
+            
+            <div style="max-width: 600px; margin: 0 auto 40px auto; text-align: center;">
+                <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; color: #fff;">اختر التطبيق</h2>
+                <p style="color: var(--gray); font-size: 15px; line-height: 1.8;">هذه لوحة داخلية خاصة بفرق التسويق والدعم في شركة VOID. اختر التطبيق الذي تعمل عليه للدخول إلى جدول فريقه الأسبوعي، مهامه، ومؤشرات أدائه.</p>
+            </div>
+
+            <div class="projects-grid">
+                
+                <!-- SETVOID: active -->
+                <div class="glass-card project-card-large">
+                    <div>
+                        <span class="project-status status-active">● نشط — لوحة متاحة</span>
+                        <div class="project-visual">
+                            <div style="font-family: var(--font-title); color: rgba(255,255,255,0.1); font-size: 40px; font-weight: 700;">SV</div>
+                        </div>
+                        <h3 class="en-title" style="margin-bottom: 10px;">SETVOID</h3>
+                        <p style="color: var(--gray); font-size: 15px; margin-bottom: 20px;">المنصة الأم لإدارة المهام والعادات. لوحة فريق التسويق والدعم الأسبوعية: المهام، الجدول، الأفكار، ومؤشرات الأداء.</p>
+                    </div>
+                    <a href="./setvoid/index.html" class="btn btn-primary" style="width: 100%;">فتح اللوحة ←</a>
+                </div>
+
+                <!-- FINVOID: placeholder -->
+                <div class="glass-card project-card-large" style="opacity: 0.6;">
+                    <div>
+                        <span class="project-status status-dev">○ لم تُضَف اللوحة بعد</span>
+                        <div class="project-visual">
+                            <div style="font-family: var(--font-title); color: rgba(255,255,255,0.1); font-size: 40px; font-weight: 700;">FV</div>
+                        </div>
+                        <h3 class="en-title" style="margin-bottom: 10px;">FINVOID</h3>
+                        <p style="color: var(--gray); font-size: 15px; margin-bottom: 20px;">لوحة فريق تسويق FINVOID ستُضاف لاحقًا هنا بنفس النظام المتّبع مع SETVOID.</p>
+                    </div>
+                    <a href="#" class="btn btn-secondary" style="width: 100%; cursor: not-allowed; opacity: 0.6;">قريبًا</a>
+                </div>
+
+            </div>
+
+            <div style="margin-top: 50px; padding: 20px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; color: var(--gray); font-family: monospace; font-size: 12px; line-height: 1.8;">
+                لإضافة تطبيق جديد: أنشئ مجلدًا باسم التطبيق داخل "Marketing Team/" يحتوي على index.html ومجلد data/ فرعي، ثم فعّل بطاقته في هذا الملف. راجع README.md لتفاصيل الخطوات الكاملة.
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Premium Core Corporate Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <a href="index.html" class="footer-logo">VOID</a>
+            <div class="copyright">
+                &copy; 2026 VOID · Internal Marketing Ops. جميع الحقوق محفوظة.
+            </div>
+            <ul class="social-links">
+                <li><a href="#" class="en-title">X</a></li>
+                <li><a href="#" class="en-title">LN</a></li>
+                <li><a href="#" class="en-title">GH</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts Deployment -->
+    <script src="main.js"></script>
 </body>
 </html>
