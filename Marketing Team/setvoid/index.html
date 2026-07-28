@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SETVOID — لوحة القيادة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0B10;
+    --void-2:#101220;
+    --void-3:#161829;
+    --line:#242640;
+    --ink:#EDEBF7;
+    --muted:#8B8AA3;
+    --violet:#8C6BFF;    --violet-dim:rgba(140,107,255,0.14);
+    --teal:#2FD9C4;       --teal-dim:rgba(47,217,196,0.14);
+    --pink:#FF6FB5;       --pink-dim:rgba(255,111,181,0.14);
+    --amber:#FFC15E;      --amber-dim:rgba(255,193,94,0.14);
+    --rest:#4A4D66;       --rest-dim:rgba(74,77,102,0.18);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 85% -10%, rgba(140,107,255,0.16), transparent 45%),
+      radial-gradient(circle at 10% 110%, rgba(47,217,196,0.10), transparent 45%),
+      var(--void);
+    font-family:'Tajawal', sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:48px 22px 80px;}
+  button{font-family:inherit;cursor:pointer;}
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px;}
+  [hidden]{display:none !important;}
+
+  /* ---------- shared header ---------- */
+  .brand{display:flex;align-items:center;gap:14px;margin-bottom:28px;}
+  .mark{
+    width:44px;height:44px;border-radius:50%;flex-shrink:0;
+    background:radial-gradient(circle at 35% 30%, #C9BBFF, var(--violet) 45%, #241A4A 100%);
+    box-shadow:0 0 26px rgba(140,107,255,0.55), inset 0 0 10px rgba(255,255,255,0.25);
+  }
+  h1{font-size:26px;font-weight:900;margin:0;letter-spacing:0.5px;}
+  .sub{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+
+  /* ---------- global data-fallback note ---------- */
+  .fallback-note{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--amber);
+    background:rgba(255,193,94,0.08);border:1px dashed rgba(255,193,94,0.4);
+    border-radius:8px;padding:6px 10px;margin-bottom:10px;line-height:1.7;
+  }
+
+  /* ---------- countdown / launch card ---------- */
+  #countdown-card{
+    position:relative;overflow:hidden;
+    border:1px solid var(--violet);border-radius:20px;
+    background:linear-gradient(160deg, var(--violet-dim), rgba(16,18,32,0.6) 60%);
+    padding:26px 26px 22px;margin-bottom:30px;
+    box-shadow:0 0 50px -20px var(--violet);
+  }
+  #countdown-card::before{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(circle at 90% 0%, rgba(140,107,255,0.25), transparent 55%);
+  }
+  #countdown-card .cd-eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--violet);margin-bottom:8px;display:flex;align-items:center;gap:8px;position:relative;
+  }
+  #countdown-card .cd-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet);animation:pulse 1.8s infinite;}
+  #countdown-card h2{font-size:22px;margin:0 0 14px;font-weight:900;position:relative;}
+  #countdown-card .cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative;}
+  @media (max-width:600px){#countdown-card .cd-grid{grid-template-columns:repeat(2,1fr);}}
+  #countdown-card .cd-item{background:rgba(6,7,12,0.4);border:1px solid rgba(140,107,255,0.3);border-radius:14px;padding:14px 8px;text-align:center;}
+  #countdown-card .cd-item b{display:block;font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--violet);}
+  #countdown-card .cd-item span{font-size:11px;color:var(--muted);display:block;margin-top:4px;}
+  #countdown-card .cd-msg{margin-top:16px;color:var(--ink);font-size:13.5px;line-height:1.8;position:relative;max-width:60ch;}
+  #countdown-card .cd-date{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);position:relative;}
+  #countdown-card.launched{border-color:var(--teal);box-shadow:0 0 50px -20px var(--teal);background:linear-gradient(160deg, var(--teal-dim), rgba(16,18,32,0.6) 60%);}
+  #countdown-card.launched .cd-eyebrow{color:var(--teal);}
+  #countdown-card.launched .cd-eyebrow .dot{background:var(--teal);box-shadow:0 0 10px var(--teal);}
+  #countdown-card.launched .cd-item{border-color:rgba(47,217,196,0.3);}
+  #countdown-card.launched .cd-item b{color:var(--teal);}
+
+  /* ================= SELECT SCREEN ================= */
+  #screen-select .intro{max-width:520px;margin:0 0 36px;}
+  #screen-select .intro h2{font-size:22px;margin:0 0 8px;font-weight:900;}
+  #screen-select .intro p{color:var(--muted);line-height:1.8;margin:0;font-size:15px;}
+
+  .people-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media (max-width:600px){.people-grid{grid-template-columns:1fr;}}
+
+  .person-card{
+    --c:var(--violet); --cd:var(--violet-dim);
+    text-align:right;
+    background:linear-gradient(180deg, var(--void-2), rgba(16,18,32,0.4));
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px;
+    display:flex;flex-direction:column;gap:10px;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .person-card:hover{transform:translateY(-3px);border-color:var(--c);box-shadow:0 10px 30px -12px var(--c);}
+  .person-card .row{display:flex;align-items:center;gap:12px;}
+  .person-card .avatar{
+    width:48px;height:48px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;
+    background:var(--cd);color:var(--c);border:1px solid var(--c);
+  }
+  .person-card .name{font-size:18px;font-weight:900;}
+  .person-card .role{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c);letter-spacing:1px;margin-top:2px;}
+  .person-card .desc{color:var(--muted);font-size:13px;line-height:1.7;}
+  .person-card .go{
+    margin-top:6px;align-self:flex-start;
+    font-size:12px;font-weight:700;color:var(--c);
+    background:var(--cd);border:1px solid var(--c);
+    padding:7px 14px;border-radius:100px;
+  }
+
+  /* ================= DASHBOARD SCREEN ================= */
+  .dash-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:26px;}
+  .back-btn{
+    background:var(--void-2);border:1px solid var(--line);color:var(--muted);
+    padding:9px 16px;border-radius:100px;font-size:13px;font-weight:700;
+  }
+  .back-btn:hover{color:var(--ink);border-color:var(--muted);}
+
+  /* --- updates banner --- */
+  #updates-banner{
+    border:1px solid var(--amber);
+    background:linear-gradient(180deg, var(--amber-dim), rgba(16,18,32,0.5));
+    border-radius:18px;
+    padding:20px 22px 8px;
+    margin-bottom:24px;
+    box-shadow:0 0 40px -18px var(--amber);
+  }
+  #updates-banner .ub-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  #updates-banner .ub-badge{
+    width:8px;height:8px;border-radius:50%;background:var(--amber);
+    box-shadow:0 0 10px var(--amber);
+    flex-shrink:0;animation:pulse 1.8s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  #updates-banner h3{font-size:15px;margin:0;font-weight:900;letter-spacing:.3px;}
+  #updates-banner .ub-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-inline-start:auto;}
+  .update-item{
+    border-top:1px solid rgba(255,193,94,0.22);
+    padding:14px 2px;
+    cursor:pointer;
+  }
+  .update-item:hover .update-title{color:var(--amber);}
+  .update-title{font-weight:700;font-size:14.5px;display:flex;justify-content:space-between;gap:10px;align-items:center;}
+  .update-title .tleft{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .update-title .chevron{color:var(--muted);font-size:12px;transition:transform .15s ease;flex-shrink:0;}
+  .update-item.open .chevron{transform:rotate(180deg);}
+  .update-detail{
+    display:none;color:var(--muted);font-size:13.5px;line-height:1.8;margin-top:10px;
+    padding-inline-start:0;
+  }
+  .update-item.open .update-detail{display:block;}
+  .update-assign{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;margin-inline-end:8px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);
+    background:rgba(255,193,94,0.1);border:1px solid rgba(255,193,94,0.35);
+    padding:4px 10px;border-radius:100px;
+  }
+  #updates-banner .ub-empty{color:var(--muted);font-size:13px;padding:6px 2px 16px;}
+  #updates-banner .ub-note{
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);
+    border-top:1px solid rgba(255,193,94,0.18);margin-top:4px;padding:10px 2px 4px;line-height:1.8;
+  }
+  .status-pill{
+    font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+    padding:3px 9px;border-radius:100px;letter-spacing:.5px;flex-shrink:0;
+  }
+
+  /* --- goal card --- */
+  #goal-card{
+    border:1px solid var(--teal);border-radius:18px;
+    background:linear-gradient(180deg, var(--teal-dim), rgba(16,18,32,0.5));
+    padding:20px 22px;margin-bottom:24px;
+  }
+  #goal-card h3{margin:0 0 14px;font-size:15px;font-weight:900;}
+  .goal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+  @media (max-width:760px){.goal-grid{grid-template-columns:repeat(2,1fr);}}
+  .goal-item{background:rgba(6,7,12,0.35);border:1px solid rgba(47,217,196,0.3);border-radius:12px;padding:12px 10px;text-align:center;}
+  .goal-item b{display:block;font-size:20px;font-weight:900;color:var(--teal);}
+  .goal-item span{font-size:11px;color:var(--muted);line-height:1.5;display:block;margin-top:4px;}
+
+  /* --- team stats dashboard --- */
+  #stats-dash{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
+  @media (max-width:760px){#stats-dash{grid-template-columns:repeat(2,1fr);}}
+  .stat-tile{
+    background:var(--void-2);border:1px solid var(--line);border-radius:14px;
+    padding:14px 12px;text-align:center;
+  }
+  .stat-tile b{display:block;font-size:22px;font-weight:900;}
+  .stat-tile span{font-size:11px;color:var(--muted);}
+
+  /* --- profile card --- */
+  #profile-card{
+    --c:var(--violet); --cd:var(--violet-dim);
+    background:linear-gradient(180deg, var(--void-2), rgba(16,18,32,0.4));
+    border:1px solid var(--line);border-inline-start:3px solid var(--c);
+    border-radius:16px;padding:22px;margin-bottom:24px;
+  }
+  #profile-card .top{display:flex;gap:18px;align-items:flex-start;}
+  #profile-card .avatar{
+    width:58px;height:58px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;
+    background:var(--cd);color:var(--c);border:1px solid var(--c);
+  }
+  #profile-card .name{font-size:21px;font-weight:900;}
+  #profile-card .role{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--c);letter-spacing:1px;margin:4px 0 10px;}
+  #profile-card .bio{color:var(--muted);font-size:14px;line-height:1.85;max-width:60ch;}
+  #profile-card .stats{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap;}
+  #profile-card .stat{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
+  #profile-card .stat b{display:block;color:var(--ink);font-size:16px;font-family:'Tajawal',sans-serif;font-weight:900;}
+  #profile-card .kpis{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);}
+  #profile-card .kpis h4{margin:0 0 10px;font-size:12.5px;color:var(--c);font-weight:700;letter-spacing:.3px;}
+  #profile-card .kpis ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
+  #profile-card .kpis li{font-size:13.5px;color:var(--ink);display:flex;gap:8px;align-items:baseline;justify-content:space-between;}
+  #profile-card .kpis li .klabel{display:flex;gap:8px;align-items:baseline;}
+  #profile-card .kpis li .klabel::before{content:'◆';color:var(--c);font-size:9px;flex-shrink:0;}
+  #profile-card .kpis li .kval{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c);flex-shrink:0;}
+
+  /* --- section headers --- */
+  .section-head{display:flex;align-items:baseline;gap:10px;margin:38px 0 16px;flex-wrap:wrap;}
+  .section-head h2{font-size:17px;margin:0;font-weight:900;}
+  .section-head .hint{color:var(--muted);font-size:12.5px;}
+
+  /* --- workflow --- */
+  #workflow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .wf-step{
+    background:var(--void-2);border:1px solid var(--line);border-radius:10px;
+    padding:10px 14px;font-size:13px;font-weight:700;white-space:nowrap;
+    display:flex;align-items:center;gap:8px;
+  }
+  .wf-step .wf-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--rest);}
+  .wf-step.wf-done{border-color:var(--teal);color:var(--teal);}
+  .wf-step.wf-done .wf-dot{background:var(--teal);box-shadow:0 0 8px var(--teal);}
+  .wf-step.wf-active{border-color:var(--amber);color:var(--amber);}
+  .wf-step.wf-active .wf-dot{background:var(--amber);box-shadow:0 0 8px var(--amber);animation:pulse 1.8s infinite;}
+  .wf-arrow{color:var(--muted);font-size:16px;flex-shrink:0;}
+  @media (max-width:680px){
+    #workflow{flex-direction:column;align-items:stretch;}
+    .wf-step{text-align:center;justify-content:center;}
+    .wf-arrow{transform:rotate(90deg);align-self:center;}
+  }
+
+  /* --- week rail --- */
+  .rail{position:relative;padding-inline-start:26px;}
+  .rail::before{
+    content:'';position:absolute;top:6px;bottom:6px;right:9px;width:1px;
+    background:linear-gradient(var(--violet), var(--teal) 35%, var(--pink) 65%, var(--amber));
+    opacity:0.5;
+  }
+  .day-card{
+    --c:var(--violet); --cd:var(--violet-dim);
+    position:relative;width:100%;text-align:right;
+    display:grid;grid-template-columns:104px 90px 1fr auto;align-items:center;gap:16px;
+    padding:18px 20px;margin-bottom:12px;
+    background:linear-gradient(180deg, var(--void-2), rgba(16,18,32,0.4));
+    border:1px solid var(--line);border-radius:14px;
+    transition:transform .15s ease, border-color .15s ease;
+    color:var(--ink);
+  }
+  .day-card.rest{opacity:0.72;}
+  .day-card:hover{transform:translateX(-4px);border-color:var(--c);}
+  .day-card::after{
+    content:'';position:absolute;right:-26px;top:50%;transform:translateY(-50%);
+    width:11px;height:11px;border-radius:50%;background:var(--c);
+    box-shadow:0 0 0 4px var(--void), 0 0 14px var(--c);
+  }
+  .day-card .dayname{font-weight:900;font-size:16px;}
+  .day-card .dayname span{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);font-weight:400;letter-spacing:1.5px;margin-top:3px;}
+  .day-card .tag{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--c);
+    background:var(--cd);padding:5px 9px;border-radius:6px;width:fit-content;
+  }
+  .day-card .mid{display:flex;flex-direction:column;gap:6px;}
+  .day-card .short{font-size:14px;line-height:1.5;}
+  .day-card .short b{color:var(--muted);font-weight:400;}
+  .day-card .meta-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .prio-pill{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;}
+  .prio-high, .prio-مرتفع{color:var(--pink);background:var(--pink-dim);border:1px solid var(--pink);}
+  .prio-medium, .prio-متوسط{color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber);}
+  .prio-low, .prio-منخفض{color:var(--teal);background:var(--teal-dim);border:1px solid var(--teal);}
+  .done-pill{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;color:var(--muted);background:rgba(139,138,163,0.12);border:1px solid var(--line);}
+  .done-pill.yes{color:var(--teal);background:var(--teal-dim);border:1px solid var(--teal);}
+  .progress-track{width:100%;height:5px;border-radius:100px;background:rgba(139,138,163,0.15);overflow:hidden;margin-top:2px;}
+  .progress-fill{height:100%;background:var(--c);border-radius:100px;}
+  .day-card .more{color:var(--muted);font-size:18px;flex-shrink:0;}
+  @media (max-width:680px){
+    .day-card{grid-template-columns:1fr;gap:6px;padding:16px 16px 16px 20px;text-align:right;}
+    .day-card::after{right:-26px;}
+    .day-card .more{position:absolute;left:14px;top:14px;}
+  }
+
+  /* --- video schedule table --- */
+  .video-list{display:flex;flex-direction:column;gap:10px;}
+  .video-row{
+    display:grid;grid-template-columns:110px 1fr 90px;gap:14px;align-items:center;
+    background:var(--void-2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;
+  }
+  .video-row .vday{font-weight:700;font-size:13.5px;}
+  .video-row .vwhat{color:var(--muted);font-size:13px;line-height:1.6;}
+  .video-row .vwho{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+    text-align:center;padding:5px 8px;border-radius:6px;
+  }
+  @media (max-width:600px){.video-row{grid-template-columns:1fr;text-align:right;}}
+
+  /* --- ideas --- */
+  .idea-list{display:flex;flex-direction:column;gap:10px;}
+  .idea-card{
+    background:var(--void-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .idea-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;}
+  .idea-title{font-weight:700;font-size:14.5px;}
+  .idea-desc{color:var(--muted);font-size:13px;line-height:1.7;}
+  .idea-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+  .idea-owner{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+    padding:4px 9px;border-radius:100px;
+  }
+
+  /* --- achievements --- */
+  .ach-list{display:flex;flex-direction:column;gap:10px;}
+  .ach-item{
+    display:flex;align-items:center;gap:12px;
+    background:linear-gradient(180deg, var(--violet-dim), rgba(16,18,32,0.3));
+    border:1px solid var(--line);border-radius:12px;padding:13px 16px;font-size:14px;
+  }
+  .ach-item .medal{font-size:18px;flex-shrink:0;}
+
+  /* --- weekly review --- */
+  #review-card{
+    background:var(--void-2);border:1px solid var(--line);border-radius:16px;padding:22px;
+  }
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+  @media (max-width:680px){.review-grid{grid-template-columns:1fr 1fr;}}
+  .review-item b{display:block;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;}
+  .review-item span{font-size:14px;}
+  .review-notes{border-top:1px solid var(--line);padding-top:14px;margin-top:4px;}
+  .review-notes p{font-size:13.5px;color:var(--ink);line-height:1.8;margin:0 0 10px;}
+  .review-notes b{color:var(--muted);font-size:12px;display:block;margin-bottom:4px;}
+
+  footer{margin-top:48px;text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;}
+
+  /* ---------- modal ---------- */
+  #modal-overlay{
+    position:fixed;inset:0;background:rgba(6,7,12,0.72);backdrop-filter:blur(3px);
+    display:flex;align-items:center;justify-content:center;padding:20px;z-index:50;
+  }
+  #modal{
+    --c:var(--violet); --cd:var(--violet-dim);
+    max-width:520px;width:100%;max-height:82vh;overflow-y:auto;
+    background:var(--void-3);border:1px solid var(--c);border-radius:18px;
+    padding:26px;box-shadow:0 20px 60px -20px var(--c);
+  }
+  #modal .m-tags{display:flex;gap:8px;flex-wrap:wrap;}
+  #modal .m-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--c);background:var(--cd);padding:5px 10px;border-radius:6px;width:fit-content;}
+  #modal h3{font-size:20px;margin:12px 0 4px;font-weight:900;}
+  #modal .m-sub{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;margin-bottom:16px;}
+  #modal .m-body{font-size:14.5px;line-height:1.9;color:var(--ink);}
+  #modal .m-body p{margin:0 0 12px;}
+  #modal .m-body p:last-child{margin-bottom:0;}
+  #modal .m-block{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+  #modal .m-block b{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;}
+  #modal .m-progress-wrap{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+  #modal .m-progress-wrap .m-progress-top{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:6px;}
+  #modal .m-deadline{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+  #modal .m-deadline b{color:var(--ink);font-family:'Tajawal',sans-serif;display:block;font-size:13px;}
+  #modal .m-close{
+    margin-top:20px;background:var(--cd);border:1px solid var(--c);color:var(--c);
+    font-weight:700;font-size:13px;padding:9px 18px;border-radius:100px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="mark"></div>
+    <div>
+      <h1 id="brand-title">SETVOID</h1>
+      <div class="sub" id="brand-sub">فريق الدعم والتسويق — الجدول الأسبوعي</div>
+    </div>
+  </div>
+
+  <div id="countdown-card"></div>
+
+  <!-- ============ SCREEN 1: SELECT ============ -->
+  <section id="screen-select">
+    <div class="intro">
+      <h2>مين انت؟</h2>
+      <p>اختر اسمك عشان تدخل على جدولك الأسبوعي الخاص: مهامك، مؤشرات أدائك، وأهم تحديثات هذا الأسبوع اللي تخصك.</p>
+    </div>
+    <div class="people-grid" id="people-grid"></div>
+  </section>
+
+  <!-- ============ SCREEN 2: DASHBOARD ============ -->
+  <section id="screen-dashboard" hidden>
+    <div class="dash-top">
+      <button class="back-btn" id="btn-back">→ تغيير المستخدم</button>
+    </div>
+
+    <div id="updates-banner"></div>
+    <div id="goal-card"></div>
+    <div id="stats-dash"></div>
+    <div id="profile-card"></div>
+
+    <div class="section-head">
+      <h2>دورة إنتاج المحتوى</h2>
+      <span class="hint">من الفكرة إلى تحليل النتائج</span>
+    </div>
+    <div id="workflow"></div>
+
+    <div class="section-head">
+      <h2>جدولك الكامل هذا الأسبوع</h2>
+      <span class="hint">اضغط على أي يوم لتفاصيل أدق</span>
+    </div>
+    <div class="rail" id="week-rail"></div>
+
+    <div class="section-head">
+      <h2>جدول رفع الفيديوهات الأسبوعي</h2>
+      <span class="hint">كل الفريق — مين ينشر وين ومتى</span>
+    </div>
+    <div class="video-list" id="video-list"></div>
+
+    <div class="section-head">
+      <h2>أفكار الأسبوع</h2>
+      <span class="hint">تُقرأ من data/ideas.json</span>
+    </div>
+    <div class="idea-list" id="idea-list"></div>
+
+    <div class="section-head">
+      <h2>إنجازات الأسبوع</h2>
+      <span class="hint">لحظات تستحق التوثيق</span>
+    </div>
+    <div class="ach-list" id="ach-list"></div>
+
+    <div class="section-head">
+      <h2>مراجعة الأسبوع</h2>
+      <span class="hint">خلاصة الأداء والدروس المستفادة</span>
+    </div>
+    <div id="review-card"></div>
+
+    <footer>SETVOID · Marketing & Support Team</footer>
+  </section>
+
+</div>
+
+<!-- ============ MODAL ============ -->
+<div id="modal-overlay" hidden>
+  <div id="modal" role="dialog" aria-modal="true">
+    <div class="m-tags">
+      <div class="m-tag" id="m-tag"></div>
+      <div class="m-tag" id="m-prio" style="display:none;"></div>
+      <div class="m-tag" id="m-status" style="display:none;"></div>
+    </div>
+    <h3 id="m-title"></h3>
+    <div class="m-sub" id="m-sub"></div>
+    <div class="m-body" id="m-body"></div>
+    <div class="m-block" id="m-goal-block" style="display:none;">
+      <b>الهدف من المهمة</b>
+      <div id="m-goal"></div>
+    </div>
+    <div class="m-block" id="m-reason-block" style="display:none;">
+      <b>سبب أهميتها</b>
+      <div id="m-reason"></div>
+    </div>
+    <div class="m-block" id="m-expected-block" style="display:none;">
+      <b>النتيجة المتوقعة</b>
+      <div id="m-expected"></div>
+    </div>
+    <div class="m-block" id="m-notes-block" style="display:none;">
+      <b>ملاحظات إضافية</b>
+      <div id="m-notes"></div>
+    </div>
+    <div class="m-progress-wrap" id="m-progress-wrap" style="display:none;">
+      <div class="m-progress-top"><span>نسبة الإنجاز</span><span id="m-progress-pct"></span></div>
+      <div class="progress-track"><div class="progress-fill" id="m-progress-fill"></div></div>
+    </div>
+    <div class="m-deadline" id="m-deadline" style="display:none;"></div>
+    <button class="m-close" id="m-close">إغلاق</button>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   SETVOID — Mission Control Dashboard
+   كل البيانات القابلة للتغيير تُقرأ من ملفات JSON داخل /data.
+   لا تحتوي هذه الطبقة إلا على منطق التطبيق وسلوك الواجهة.
+===================================================================== */
+
+const DATA_PATHS = {
+  project:  './data/project.json',
+  goals:    './data/weekly-goals.json',
+  updates:  './data/updates.json',
+  ideas:    './data/ideas.json',
+  achievements: './data/achievements.json',
+  kpis:     './data/team-kpis.json',
+  review:   './data/weekly-review.json',
+  team:     './data/team.json',
+  tasks:    './data/tasks.json',
+  videos:   './data/video-schedule.json',
+  workflow: './data/workflow.json'
+};
+
+/* بيانات افتراضية تُستخدم فقط إذا تعذّر تحميل الملف المقابل من /data */
+const FALLBACKS = {
+  project: { name:'SETVOID', tagline:'فريق الدعم والتسويق — الجدول الأسبوعي', launchDate:null, phase:null, motivationalMessage:'' },
+  goals: { prelaunch:[], postlaunch:[] },
+  updates: [{ title:'مثال: تحديث افتراضي', description:'تعذّر تحميل data/updates.json — هذا محتوى افتراضي.', owner:'', priority:'متوسط', status:'جديد' }],
+  ideas: [{ title:'مثال: فكرة افتراضية', description:'تعذّر تحميل data/ideas.json — هذا محتوى افتراضي.', owner:'—', status:'جديدة' }],
+  achievements: [{ text:'تعذّر تحميل data/achievements.json' }],
+  kpis: {},
+  review: { bestPlatform:'—', bestContent:'—', worstContent:'—', lessonsLearned:'تعذّر تحميل data/weekly-review.json', improvementPlan:'—' },
+  team: [],
+  tasks: [],
+  videos: [],
+  workflow: []
+};
+
+const UPDATE_STATUSES = ['جديد','قيد التحضير','جاهز للتصوير','تم التصوير','تم النشر'];
+const STATUS_COLOR = { 'جديد':'violet', 'قيد التحضير':'amber', 'جاهز للتصوير':'amber', 'تم التصوير':'teal', 'تم النشر':'pink' };
+const PRIORITY_COLOR = { 'مرتفع':'pink', 'متوسط':'amber', 'منخفض':'teal' };
+const TASK_STATUS_COLOR = { 'لم يبدأ':'rest', 'قيد التنفيذ':'amber', 'بانتظار المراجعة':'violet', 'مكتمل':'teal' };
+const WF_STATUS_CLASS = { 'مكتمل':'wf-done', 'قيد التنفيذ':'wf-active', 'لم يبدأ':'' };
+
+const FAILED_SECTIONS = [];
+
+async function loadJSON(key){
+  const path = DATA_PATHS[key];
+  try{
+    const res = await fetch(path, { cache:'no-store' });
+    if(!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json();
+    return { data, ok:true };
+  }catch(e){
+    FAILED_SECTIONS.push(path);
+    return { data: FALLBACKS[key], ok:false };
+  }
+}
+
+function fallbackNote(label){
+  return `<div class="fallback-note">⚠ تعذّر تحميل ${label} — يتم عرض بيانات افتراضية حتى يتم إصلاح الملف.</div>`;
+}
+
+/* =====================================================================
+   حالة عامة للتطبيق — تُملأ من fetch عند بدء التشغيل
+===================================================================== */
+const STATE = {
+  project:null, projectOk:true,
+  goals:null, goalsOk:true,
+  updates:null, updatesOk:true,
+  ideas:null, ideasOk:true,
+  achievements:null, achievementsOk:true,
+  kpis:null, kpisOk:true,
+  review:null, reviewOk:true,
+  team:[], teamOk:true,
+  peopleById:{}, peopleOrder:[],
+  tasks:[], tasksOk:true,
+  videos:[], videosOk:true,
+  workflow:[], workflowOk:true,
+  phase:'Pre-Launch'
+};
+
+async function bootstrap(){
+  const [project, goals, updates, ideas, achievements, kpis, review, team, tasks, videos, workflow] = await Promise.all([
+    loadJSON('project'), loadJSON('goals'), loadJSON('updates'), loadJSON('ideas'),
+    loadJSON('achievements'), loadJSON('kpis'), loadJSON('review'), loadJSON('team'),
+    loadJSON('tasks'), loadJSON('videos'), loadJSON('workflow')
+  ]);
+
+  STATE.project = project.data; STATE.projectOk = project.ok;
+  STATE.goals = goals.data; STATE.goalsOk = goals.ok;
+  STATE.updates = updates.data; STATE.updatesOk = updates.ok;
+  STATE.ideas = ideas.data; STATE.ideasOk = ideas.ok;
+  STATE.achievements = achievements.data; STATE.achievementsOk = achievements.ok;
+  STATE.kpis = kpis.data; STATE.kpisOk = kpis.ok;
+  STATE.review = review.data; STATE.reviewOk = review.ok;
+  STATE.team = team.data || []; STATE.teamOk = team.ok;
+  STATE.tasks = tasks.data || []; STATE.tasksOk = tasks.ok;
+  STATE.videos = videos.data || []; STATE.videosOk = videos.ok;
+  STATE.workflow = workflow.data || []; STATE.workflowOk = workflow.ok;
+
+  STATE.peopleOrder = STATE.team.map(p=>p.id);
+  STATE.team.forEach(p=>{ STATE.peopleById[p.id] = p; });
+
+  STATE.phase = computePhase();
+
+  renderBrand();
+  renderCountdown();
+  setInterval(renderCountdown, 1000);
+  renderPeopleGrid();
+}
+
+function computePhase(){
+  const proj = STATE.project || {};
+  if(proj.phase === 'Pre-Launch' || proj.phase === 'Post-Launch') return proj.phase;
+  if(!proj.launchDate) return 'Pre-Launch';
+  const launch = new Date(proj.launchDate);
+  const now = new Date();
+  return now < launch ? 'Pre-Launch' : 'Post-Launch';
+}
+
+function renderBrand(){
+  const proj = STATE.project || {};
+  if(proj.name) document.getElementById('brand-title').textContent = proj.name;
+  if(proj.tagline) document.getElementById('brand-sub').textContent = proj.tagline;
+}
+
+/* =====================================================================
+   بطاقة العد التنازلي / حالة الإطلاق
+===================================================================== */
+function renderCountdown(){
+  const el = document.getElementById('countdown-card');
+  const proj = STATE.project || {};
+  const launchDate = proj.launchDate ? new Date(proj.launchDate) : null;
+  const now = new Date();
+  const note = STATE.projectOk ? '' : fallbackNote('data/project.json');
+
+  if(!launchDate){
+    el.innerHTML = `${note}<div class="cd-eyebrow"><span class="dot"></span>SETVOID</div><h2>لا يوجد تاريخ إطلاق محدد</h2><div class="cd-msg">أضف launchDate داخل data/project.json لعرض العد التنازلي.</div>`;
+    return;
+  }
+
+  if(now < launchDate){
+    el.classList.remove('launched');
+    const diff = launchDate - now;
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    el.innerHTML = `
+      ${note}
+      <div class="cd-eyebrow"><span class="dot"></span>PRE-LAUNCH · SETVOID</div>
+      <h2>العد التنازلي لإطلاق SETVOID</h2>
+      <div class="cd-grid">
+        <div class="cd-item"><b>${days}</b><span>يوم</span></div>
+        <div class="cd-item"><b>${String(hours).padStart(2,'0')}</b><span>ساعة</span></div>
+        <div class="cd-item"><b>${String(minutes).padStart(2,'0')}</b><span>دقيقة</span></div>
+        <div class="cd-item"><b>${String(seconds).padStart(2,'0')}</b><span>ثانية</span></div>
+      </div>
+      ${proj.motivationalMessage ? `<div class="cd-msg">${proj.motivationalMessage}</div>` : ''}
+      <div class="cd-date">تاريخ الإطلاق: ${formatDate(launchDate)}</div>
+    `;
+  } else {
+    el.classList.add('launched');
+    const daysSince = Math.floor((now - launchDate) / 86400000);
+    el.innerHTML = `
+      ${note}
+      <div class="cd-eyebrow"><span class="dot"></span>POST-LAUNCH · SETVOID</div>
+      <h2>🚀 تم إطلاق SETVOID</h2>
+      <div class="cd-grid">
+        <div class="cd-item" style="grid-column:span 4;"><b>${daysSince}</b><span>يوم منذ الإطلاق</span></div>
+      </div>
+      ${proj.motivationalMessage ? `<div class="cd-msg">${proj.motivationalMessage}</div>` : ''}
+      <div class="cd-date">تاريخ الإطلاق: ${formatDate(launchDate)}</div>
+    `;
+  }
+}
+
+function formatDate(d){
+  return d.toLocaleDateString('ar', { year:'numeric', month:'long', day:'numeric' });
+}
+
+/* =====================================================================
+   عرض شاشة الاختيار
+===================================================================== */
+function renderPeopleGrid(){
+  const peopleGrid = document.getElementById('people-grid');
+  peopleGrid.innerHTML = '';
+  if(!STATE.teamOk){
+    peopleGrid.insertAdjacentHTML('beforebegin', fallbackNote('data/team.json'));
+  }
+  STATE.peopleOrder.forEach(id=>{
+    const p = STATE.peopleById[id];
+    const card = document.createElement('button');
+    card.className = 'person-card';
+    card.style.setProperty('--c', `var(--${p.color})`);
+    card.style.setProperty('--cd', `var(--${p.color}-dim)`);
+    card.innerHTML = `
+      <div class="row">
+        <div class="avatar">${p.avatar}</div>
+        <div>
+          <div class="name">${p.name}</div>
+          <div class="role">${p.role}</div>
+        </div>
+      </div>
+      <div class="desc">${p.bio}</div>
+      <div class="go">هذا أنا →</div>
+    `;
+    card.addEventListener('click', ()=>selectPerson(id));
+    peopleGrid.appendChild(card);
+  });
+}
+
+document.getElementById('btn-back').addEventListener('click', ()=>{
+  document.getElementById('screen-dashboard').hidden = true;
+  document.getElementById('screen-select').hidden = false;
+});
+
+/* =====================================================================
+   بناء لوحة تحكم الشخص المختار
+===================================================================== */
+function selectPerson(id){
+  const p = STATE.peopleById[id];
+  document.getElementById('screen-select').hidden = true;
+  document.getElementById('screen-dashboard').hidden = false;
+
+  renderProfile(p, id);
+  renderStats(id);
+  renderWorkflow();
+  renderWeek(p, id);
+  renderVideoSchedule();
+  renderGoals();
+  renderUpdates(id);
+  renderIdeas();
+  renderAchievements();
+  renderReview();
+
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* أولوية/حالة كل مهمة تُقرأ مباشرة من tasks.json (priority, status, progress) */
+function isRest(entry){ return entry.entryStatus === 'rest'; }
+
+function renderProfile(p, id){
+  const el = document.getElementById('profile-card');
+  el.style.setProperty('--c', `var(--${p.color})`);
+  el.style.setProperty('--cd', `var(--${p.color}-dim)`);
+  const entries = STATE.tasks.map(d=>d.entries[id]).filter(Boolean);
+  const mainDays = entries.filter(e=>e.entryStatus==='main').length;
+  const restDays = entries.filter(e=>e.entryStatus==='rest').length;
+  const kpiList = (STATE.kpis && STATE.kpis[id]) || [];
+  const kpiNote = STATE.kpisOk ? '' : fallbackNote('data/team-kpis.json');
+  const kpiItems = kpiList.map(k=>`<li><span class="klabel">${k.label}</span><span class="kval">${k.value ?? '—'}</span></li>`).join('');
+  el.innerHTML = `
+    <div class="top">
+      <div class="avatar">${p.avatar}</div>
+      <div>
+        <div class="name">${p.name}</div>
+        <div class="role">${p.role}</div>
+        <div class="bio">${p.bio}</div>
+        <div class="stats">
+          <div class="stat"><b>${mainDays}</b>أيام مهمة رئيسية</div>
+          <div class="stat"><b>${restDays}</b>أيام راحة</div>
+          <div class="stat"><b>${p.focus}</b>تركيزك الأساسي</div>
+        </div>
+      </div>
+    </div>
+    <div class="kpis">
+      <h4>مؤشرات الأداء الأسبوعية</h4>
+      ${kpiNote}
+      <ul>${kpiItems || '<li><span class="klabel">لا توجد مؤشرات مضافة</span></li>'}</ul>
+    </div>
+  `;
+}
+
+function renderStats(id){
+  const entries = STATE.tasks.map(d=>d.entries[id]).filter(Boolean);
+  const active = entries.filter(e=>!isRest(e));
+  const done = active.filter(e=>e.status === 'مكتمل').length;
+  const total = active.length;
+  const remaining = total - done;
+  const pct = total ? Math.round((done/total)*100) : 0;
+  const restDays = entries.filter(isRest).length;
+  const el = document.getElementById('stats-dash');
+  el.innerHTML = `
+    ${!STATE.tasksOk ? fallbackNote('data/tasks.json') : ''}
+    <div class="stat-tile"><b style="color:var(--violet)">${total}</b><span>عدد المهام</span></div>
+    <div class="stat-tile"><b style="color:var(--teal)">${done}</b><span>مهام مكتملة</span></div>
+    <div class="stat-tile"><b style="color:var(--amber)">${remaining}</b><span>مهام متبقية</span></div>
+    <div class="stat-tile"><b style="color:var(--pink)">${pct}%</b><span>نسبة الإنجاز</span></div>
+    <div class="stat-tile"><b style="color:var(--ink)">${STATE.videos.length}</b><span>عدد الفيديوهات</span></div>
+    <div class="stat-tile"><b style="color:var(--rest)">${restDays}</b><span>أيام راحتك</span></div>
+  `;
+}
+
+function renderWorkflow(){
+  const el = document.getElementById('workflow');
+  const note = STATE.workflowOk ? '' : fallbackNote('data/workflow.json');
+  const steps = STATE.workflow.map((s,i)=>{
+    const cls = WF_STATUS_CLASS[s.status] || '';
+    const arrow = i < STATE.workflow.length-1 ? `<span class="wf-arrow">←</span>` : '';
+    return `<div class="wf-step ${cls}"><span class="wf-dot"></span>${s.name}</div>${arrow}`;
+  }).join('');
+  el.innerHTML = note + steps;
+}
+
+function renderWeek(p, id){
+  const rail = document.getElementById('week-rail');
+  rail.innerHTML = STATE.tasksOk ? '' : fallbackNote('data/tasks.json');
+  STATE.tasks.forEach((day)=>{
+    const entry = day.entries[id];
+    if(!entry) return;
+    const rest = isRest(entry);
+    const color = rest ? 'rest' : p.color;
+    const card = document.createElement('button');
+    card.className = 'day-card' + (rest ? ' rest' : '');
+    card.style.setProperty('--c', `var(--${color})`);
+    card.style.setProperty('--cd', `var(--${color}-dim)`);
+    const prioColor = PRIORITY_COLOR[entry.priority] || 'teal';
+    const statusColor = TASK_STATUS_COLOR[entry.status] || 'rest';
+    const metaRow = rest ? '' : `
+      <div class="meta-row">
+        <span class="prio-pill" style="color:var(--${prioColor});background:var(--${prioColor}-dim);border:1px solid var(--${prioColor})">${entry.priority || '—'}</span>
+        <span class="done-pill ${entry.status==='مكتمل' ? 'yes' : ''}">${entry.status || '—'}</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:${entry.progress||0}%;background:var(--${statusColor})"></div></div>`;
+    card.innerHTML = `
+      <div class="dayname">${day.name}<span>${day.code}</span></div>
+      <div class="tag">${rest ? 'راحة' : (entry.entryStatus==='main' ? 'مهمة رئيسية' : 'دعم خفيف')}</div>
+      <div class="mid">
+        <div class="short">${entry.short}${entry.platform ? ` — <b>${entry.platform}</b>` : ''}</div>
+        ${metaRow}
+      </div>
+      <div class="more">›</div>
+    `;
+    card.addEventListener('click', ()=>openDayModal(p, day, entry));
+    rail.appendChild(card);
+  });
+}
+
+function renderVideoSchedule(){
+  const list = document.getElementById('video-list');
+  list.innerHTML = STATE.videosOk ? '' : fallbackNote('data/video-schedule.json');
+  STATE.videos.forEach(v=>{
+    const p = STATE.peopleById[v.who];
+    if(!p) return;
+    const row = document.createElement('div');
+    row.className = 'video-row';
+    row.innerHTML = `
+      <div class="vday">${v.day}</div>
+      <div class="vwhat">${v.what}</div>
+      <div class="vwho" style="color:var(--${p.color});background:var(--${p.color}-dim);border:1px solid var(--${p.color})">${p.name}</div>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function renderGoals(){
+  const el = document.getElementById('goal-card');
+  const goals = STATE.goals || {};
+  const list = STATE.phase === 'Post-Launch' ? (goals.postlaunch || []) : (goals.prelaunch || []);
+  const note = STATE.goalsOk ? '' : fallbackNote('data/weekly-goals.json');
+  const items = list.map(g=>`
+    <div class="goal-item">
+      <b>${g.target}</b>
+      <span>${g.label}</span>
+    </div>
+  `).join('');
+  el.innerHTML = `
+    <h3>🎯 هدف الأسبوع${STATE.phase === 'Post-Launch' ? ' — ما بعد الإطلاق' : ' — قبل الإطلاق'}</h3>
+    ${note}
+    <div class="goal-grid">${items || '<span style="color:var(--muted);font-size:13px;">لا توجد أهداف مضافة حاليًا.</span>'}</div>
+  `;
+}
+
+function renderAchievements(){
+  const el = document.getElementById('ach-list');
+  const note = STATE.achievementsOk ? '' : fallbackNote('data/achievements.json');
+  el.innerHTML = note + STATE.achievements.map(a=>`
+    <div class="ach-item"><span class="medal">🏆</span><span>${a.text}</span></div>
+  `).join('');
+}
+
+function renderReview(){
+  const el = document.getElementById('review-card');
+  const r = STATE.review || {};
+  const note = STATE.reviewOk ? '' : fallbackNote('data/weekly-review.json');
+  el.innerHTML = `
+    ${note}
+    <div class="review-grid">
+      <div class="review-item"><b>أفضل منصة</b><span>${r.bestPlatform || '—'}</span></div>
+      <div class="review-item"><b>أفضل محتوى</b><span>${r.bestContent || '—'}</span></div>
+      <div class="review-item"><b>أقل محتوى أداءً</b><span>${r.worstContent || '—'}</span></div>
+    </div>
+    <div class="review-notes">
+      <b>أهم الدروس المستفادة</b>
+      <p>${r.lessonsLearned || '—'}</p>
+      <b>خطة التحسين للأسبوع القادم</b>
+      <p>${r.improvementPlan || '—'}</p>
+    </div>
+  `;
+}
+
+function renderIdeas(){
+  const el = document.getElementById('idea-list');
+  const note = STATE.ideasOk ? '' : fallbackNote('data/ideas.json');
+  if(!STATE.ideas.length){
+    el.innerHTML = `${note}<div class="idea-card"><span class="idea-desc">لا توجد أفكار مضافة حاليًا في data/ideas.json.</span></div>`;
+    return;
+  }
+  el.innerHTML = note + STATE.ideas.map(idea=>{
+    const ownerPerson = STATE.peopleOrder.map(k=>STATE.peopleById[k]).find(p=>p.name === idea.owner);
+    const ownerStyle = ownerPerson ? `color:var(--${ownerPerson.color});background:var(--${ownerPerson.color}-dim);border:1px solid var(--${ownerPerson.color})` : `color:var(--muted);background:rgba(139,138,163,0.1);border:1px solid var(--line)`;
+    return `
+      <div class="idea-card">
+        <div class="idea-top">
+          <span class="idea-title">${idea.title}</span>
+        </div>
+        <span class="idea-desc">${idea.description}</span>
+        <div class="idea-meta">
+          <span class="idea-owner" style="${ownerStyle}">👤 ${idea.owner}</span>
+          <span class="status-pill" style="color:var(--muted);background:rgba(139,138,163,0.1);border:1px solid var(--line)">${idea.status}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* كل تحديث له مسؤول ثابت (owner) وأولوية وحالة تُقرأ من updates.json مباشرة */
+function renderUpdates(currentId){
+  const el = document.getElementById('updates-banner');
+  const note = STATE.updatesOk ? '' : fallbackNote('data/updates.json');
+  const updates = STATE.updates || [];
+  if(!updates.length){
+    el.innerHTML = `
+      <div class="ub-head">
+        <span class="ub-badge"></span>
+        <h3>أهم التحديثات هذا الأسبوع</h3>
+      </div>
+      ${note}
+      <div class="ub-empty">لا توجد تحديثات مضافة حاليًا في data/updates.json.</div>
+    `;
+    return;
+  }
+  const items = updates.map((u,i)=>{
+    const assignee = STATE.peopleById[u.owner];
+    const isMine = assignee && assignee.id === currentId;
+    const statusColor = STATUS_COLOR[u.status] || 'violet';
+    const prioColor = PRIORITY_COLOR[u.priority] || 'amber';
+    return `
+      <div class="update-item" data-idx="${i}">
+        <div class="update-title">
+          <span class="tleft">
+            <span>${u.title}</span>
+            <span class="status-pill" style="color:var(--${statusColor});background:var(--${statusColor}-dim);border:1px solid var(--${statusColor})">${u.status}</span>
+            ${u.priority ? `<span class="status-pill" style="color:var(--${prioColor});background:var(--${prioColor}-dim);border:1px solid var(--${prioColor})">أولوية: ${u.priority}</span>` : ''}
+          </span>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="update-detail">
+          <p>${u.description || 'لا يوجد وصف إضافي لهذا التحديث.'}</p>
+          ${assignee ? `<span class="update-assign">🎥 المسؤول: ${assignee.name}${isMine ? ' (أنت)' : ''}</span>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+  el.innerHTML = `
+    <div class="ub-head">
+      <span class="ub-badge"></span>
+      <h3>أهم التحديثات هذا الأسبوع</h3>
+      <span class="ub-sub">${updates.length} تحديث</span>
+    </div>
+    ${note}
+    ${items}
+    <div class="ub-note">لإضافة أو تعديل التحديثات، حرّر ملف data/updates.json.</div>
+  `;
+  el.querySelectorAll('.update-item').forEach(item=>{
+    item.querySelector('.update-title').addEventListener('click', ()=>{
+      item.classList.toggle('open');
+    });
+  });
+}
+
+/* تُشتق حقول المهمة الإضافية (الهدف / سبب الأهمية / النتيجة المتوقعة / ملاحظات)
+   من بيانات كل إدخال تلقائيًا حتى لا نكرر نفس المعلومة مرتين في JSON */
+function taskFields(entry){
+  if(isRest(entry)){
+    return { goal:'', reason:'', expected:'', notes:'يوم راحة، لا أهداف محددة لهذا اليوم.' };
+  }
+  const goal = `تنفيذ ونشر: ${entry.title}`;
+  const reason = entry.entryStatus === 'main'
+    ? 'هذه مهمة رئيسية ليوم اليوم — تعتمد عليها بقية مهام الفريق ومحتوى الأسبوع.'
+    : 'مهمة دعم تكمّل المهمة الرئيسية لنفس اليوم وتساعد في إنجازها بجودة أعلى.';
+  const expected = entry.platform ? `تفاعل جيد ومشاهدات مرتفعة على ${entry.platform}` : 'إنجاز المهمة ضمن الجدول المحدد لهذا اليوم';
+  const notes = entry.entryStatus === 'main'
+    ? 'مهمة أساسية لهذا اليوم — تحتاج اعتماد صلاح قبل النشر النهائي.'
+    : 'مهمة دعم — تنسيق مباشر مع الزميل المسؤول عن المهمة الرئيسية في نفس اليوم.';
+  return { goal, reason, expected, notes };
+}
+
+/* =====================================================================
+   المودال — تفاصيل أدق ليوم محدد
+===================================================================== */
+const overlay = document.getElementById('modal-overlay');
+function openDayModal(p, day, entry){
+  const rest = isRest(entry);
+  const color = rest ? 'rest' : p.color;
+  const modal = document.getElementById('modal');
+  modal.style.setProperty('--c', `var(--${color})`);
+  modal.style.setProperty('--cd', `var(--${color}-dim)`);
+  document.getElementById('m-tag').textContent = rest ? 'راحة' : (entry.entryStatus==='main' ? 'مهمة رئيسية' : 'دعم خفيف');
+
+  const prioEl = document.getElementById('m-prio');
+  if(!rest && entry.priority){
+    const pc = PRIORITY_COLOR[entry.priority] || 'teal';
+    prioEl.style.display = '';
+    prioEl.textContent = 'أولوية: ' + entry.priority;
+    prioEl.style.color = `var(--${pc})`;
+    prioEl.style.background = `var(--${pc}-dim)`;
+  } else {
+    prioEl.style.display = 'none';
+  }
+
+  const statusEl = document.getElementById('m-status');
+  if(!rest && entry.status){
+    const sc = TASK_STATUS_COLOR[entry.status] || 'violet';
+    statusEl.style.display = '';
+    statusEl.textContent = entry.status;
+    statusEl.style.color = `var(--${sc})`;
+    statusEl.style.background = `var(--${sc}-dim)`;
+  } else {
+    statusEl.style.display = 'none';
+  }
+
+  document.getElementById('m-title').textContent = `${day.name} — ${entry.title}`;
+  document.getElementById('m-sub').textContent = `${p.name} · ${day.code}${entry.platform ? ' · ' + entry.platform : ''}`;
+  document.getElementById('m-body').innerHTML = `<p>${entry.detail}</p>`;
+
+  const fields = taskFields(entry);
+  const goalBlock = document.getElementById('m-goal-block');
+  const reasonBlock = document.getElementById('m-reason-block');
+  const expBlock = document.getElementById('m-expected-block');
+  const notesBlock = document.getElementById('m-notes-block');
+  if(fields.goal){ goalBlock.style.display=''; document.getElementById('m-goal').textContent = fields.goal; } else { goalBlock.style.display='none'; }
+  if(fields.reason){ reasonBlock.style.display=''; document.getElementById('m-reason').textContent = fields.reason; } else { reasonBlock.style.display='none'; }
+  if(fields.expected){ expBlock.style.display=''; document.getElementById('m-expected').textContent = fields.expected; } else { expBlock.style.display='none'; }
+  if(fields.notes){ notesBlock.style.display=''; document.getElementById('m-notes').textContent = fields.notes; } else { notesBlock.style.display='none'; }
+
+  const progressWrap = document.getElementById('m-progress-wrap');
+  if(!rest){
+    progressWrap.style.display = '';
+    const pct = entry.progress || 0;
+    document.getElementById('m-progress-pct').textContent = pct + '%';
+    document.getElementById('m-progress-fill').style.width = pct + '%';
+    document.getElementById('m-progress-fill').style.background = `var(--${color})`;
+  } else {
+    progressWrap.style.display = 'none';
+  }
+
+  const deadlineEl = document.getElementById('m-deadline');
+  if(rest){
+    deadlineEl.style.display = 'none';
+  } else {
+    deadlineEl.style.display = '';
+    deadlineEl.innerHTML = `
+      <div>موعد البدء<b>${entry.startTime || '—'} · ${day.code}</b></div>
+      <div>الموعد النهائي<b>${entry.deadline || '—'} · ${day.code}</b></div>
+      <div>الحالة<b>${entry.status || '—'}</b></div>
+    `;
+  }
+
+  overlay.hidden = false;
+}
+document.getElementById('m-close').addEventListener('click', ()=>overlay.hidden = true);
+overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.hidden = true; });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') overlay.hidden = true; });
+
+bootstrap();
+</script>
+</body>
+</html>
