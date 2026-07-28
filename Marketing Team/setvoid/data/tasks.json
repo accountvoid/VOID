@@ -1,0 +1,308 @@
+[
+  {
+    "name": "الأحد",
+    "code": "SUN",
+    "entries": {
+      "sara": {
+        "entryStatus": "main",
+        "title": "اجتماع التخطيط الأسبوعي",
+        "short": "اجتماع تخطيط + توزيع المهام",
+        "detail": "عقد اجتماع الفريق الأسبوعي لمراجعة أداء الأسبوع الماضي وتوزيع مهام الأسبوع الحالي بين الأعضاء.",
+        "platform": null,
+        "priority": "مرتفع",
+        "status": "مكتمل",
+        "progress": 100,
+        "startTime": "09:00 ص",
+        "deadline": "11:00 ص"
+      },
+      "omar": {
+        "entryStatus": "main",
+        "title": "تصوير الفيديو التعريفي",
+        "short": "تصوير المشاهد الرئيسية",
+        "detail": "تصوير المشاهد الأساسية للفيديو التعريفي الجديد بالهوية البصرية المحدثة.",
+        "platform": "إنستغرام / تيك توك",
+        "priority": "مرتفع",
+        "status": "قيد التنفيذ",
+        "progress": 40,
+        "startTime": "11:30 ص",
+        "deadline": "06:00 م"
+      },
+      "layla": {
+        "entryStatus": "support",
+        "title": "جدولة منشورات الأسبوع",
+        "short": "تجهيز تقويم النشر",
+        "detail": "إعداد وجدولة منشورات الأسبوع على أدوات الجدولة المعتمدة بالتنسيق مع فريق التصميم.",
+        "platform": "إنستغرام",
+        "priority": "متوسط",
+        "status": "قيد التنفيذ",
+        "progress": 30,
+        "startTime": "10:00 ص",
+        "deadline": "03:00 م"
+      },
+      "faisal": {
+        "entryStatus": "main",
+        "title": "مراجعة تذاكر الدعم المتراكمة",
+        "short": "تصفير التذاكر المتأخرة",
+        "detail": "مراجعة كل التذاكر المتراكمة من نهاية الأسبوع الماضي والرد عليها بأولوية.",
+        "platform": null,
+        "priority": "مرتفع",
+        "status": "قيد التنفيذ",
+        "progress": 50,
+        "startTime": "09:00 ص",
+        "deadline": "05:00 م"
+      }
+    }
+  },
+  {
+    "name": "الاثنين",
+    "code": "MON",
+    "entries": {
+      "sara": {
+        "entryStatus": "support",
+        "title": "متابعة تنفيذ خطة الأسبوع",
+        "short": "تفقد سير العمل",
+        "detail": "متابعة تقدم أعضاء الفريق في مهامهم وتذليل أي عقبات تواجههم.",
+        "platform": null,
+        "priority": "متوسط",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "10:00 ص",
+        "deadline": "01:00 م"
+      },
+      "omar": {
+        "entryStatus": "main",
+        "title": "مونتاج الفيديو التعريفي",
+        "short": "تركيب ومعالجة اللقطات",
+        "detail": "مونتاج اللقطات المصورة وإضافة الموسيقى والمؤثرات البصرية المتوافقة مع الهوية.",
+        "platform": "إنستغرام / تيك توك",
+        "priority": "مرتفع",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "11:00 ص",
+        "deadline": "07:00 م"
+      },
+      "layla": {
+        "entryStatus": "main",
+        "title": "نشر محتوى إنستغرام",
+        "short": "نشر + متابعة التفاعل",
+        "detail": "نشر المحتوى المجدول على إنستغرام والرد على تعليقات ورسائل المتابعين.",
+        "platform": "إنستغرام",
+        "priority": "متوسط",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "09:00 ص",
+        "deadline": "04:00 م"
+      },
+      "faisal": {
+        "entryStatus": "rest"
+      }
+    }
+  },
+  {
+    "name": "الثلاثاء",
+    "code": "TUE",
+    "entries": {
+      "sara": {
+        "entryStatus": "main",
+        "title": "متابعة الشراكات التسويقية",
+        "short": "تواصل مع شركاء محتملين",
+        "detail": "التواصل مع 3 شراكات تسويقية محتملة ومتابعة المفاوضات الجارية.",
+        "platform": null,
+        "priority": "مرتفع",
+        "status": "قيد التنفيذ",
+        "progress": 60,
+        "startTime": "10:00 ص",
+        "deadline": "02:00 م"
+      },
+      "omar": {
+        "entryStatus": "rest"
+      },
+      "layla": {
+        "entryStatus": "main",
+        "title": "تصوير قصة خلف الكواليس",
+        "short": "تصوير Stories يومية",
+        "detail": "تصوير محتوى خلف الكواليس من فريق التطوير لنشره كـStories.",
+        "platform": "إنستغرام",
+        "priority": "متوسط",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "12:00 م",
+        "deadline": "05:00 م"
+      },
+      "faisal": {
+        "entryStatus": "main",
+        "title": "الرد على استفسارات الدعم",
+        "short": "دعم فني مباشر",
+        "detail": "متابعة قنوات الدعم والرد على استفسارات المستخدمين والمهتمين بالنسخة التجريبية.",
+        "platform": null,
+        "priority": "متوسط",
+        "status": "قيد التنفيذ",
+        "progress": 20,
+        "startTime": "09:00 ص",
+        "deadline": "06:00 م"
+      }
+    }
+  },
+  {
+    "name": "الأربعاء",
+    "code": "WED",
+    "entries": {
+      "sara": {
+        "entryStatus": "main",
+        "title": "مراجعة أداء الحملات",
+        "short": "تحليل مؤشرات الأداء",
+        "detail": "مراجعة أرقام التفاعل والوصول لحملات الأسبوع وإعداد ملاحظات للتحسين.",
+        "platform": null,
+        "priority": "متوسط",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "10:00 ص",
+        "deadline": "01:00 م"
+      },
+      "omar": {
+        "entryStatus": "main",
+        "title": "تصميم منشورات ثابتة",
+        "short": "تصميم بوستات الأسبوع",
+        "detail": "تصميم مجموعة منشورات ثابتة (صور/إنفوجرافيك) لدعم خطة المحتوى الأسبوعية.",
+        "platform": "إنستغرام",
+        "priority": "منخفض",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "11:00 ص",
+        "deadline": "04:00 م"
+      },
+      "layla": {
+        "entryStatus": "support",
+        "title": "تنسيق نشر منشورات عمر",
+        "short": "جدولة المنشورات الثابتة",
+        "detail": "استلام التصاميم من عمر وجدولتها للنشر في المواعيد المحددة.",
+        "platform": "إنستغرام",
+        "priority": "منخفض",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "04:00 م",
+        "deadline": "06:00 م"
+      },
+      "faisal": {
+        "entryStatus": "main",
+        "title": "تلخيص ملاحظات المستخدمين",
+        "short": "تقرير ملاحظات أسبوعي",
+        "detail": "تجميع أبرز الملاحظات والمشاكل المتكررة من المستخدمين وإرسالها لفريق التطوير.",
+        "platform": null,
+        "priority": "متوسط",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "09:00 ص",
+        "deadline": "03:00 م"
+      }
+    }
+  },
+  {
+    "name": "الخميس",
+    "code": "THU",
+    "entries": {
+      "sara": {
+        "entryStatus": "support",
+        "title": "تحضير التقرير الأسبوعي",
+        "short": "جمع بيانات الأداء",
+        "detail": "البدء بتجميع بيانات وإنجازات الأسبوع تمهيدًا لتقرير الجمعة.",
+        "platform": null,
+        "priority": "متوسط",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "10:00 ص",
+        "deadline": "01:00 م"
+      },
+      "omar": {
+        "entryStatus": "main",
+        "title": "إنتاج فيديو ريلز",
+        "short": "تصوير ومونتاج سريع",
+        "detail": "إنتاج فيديو ريلز قصير عن تحدي الانضباط اليومي بالتعاون مع ليلى.",
+        "platform": "تيك توك / ريلز",
+        "priority": "مرتفع",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "10:00 ص",
+        "deadline": "06:00 م"
+      },
+      "layla": {
+        "entryStatus": "main",
+        "title": "نشر وتفاعل يومي",
+        "short": "نشر الريلز والمتابعة",
+        "detail": "نشر فيديو الريلز الجديد والتفاعل مع الجمهور والرد على التعليقات.",
+        "platform": "تيك توك / إنستغرام",
+        "priority": "مرتفع",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "05:00 م",
+        "deadline": "08:00 م"
+      },
+      "faisal": {
+        "entryStatus": "main",
+        "title": "متابعة تذاكر الدعم اليومية",
+        "short": "دعم فني مباشر",
+        "detail": "متابعة قنوات الدعم اليومية والرد على الاستفسارات الجديدة.",
+        "platform": null,
+        "priority": "متوسط",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "09:00 ص",
+        "deadline": "05:00 م"
+      }
+    }
+  },
+  {
+    "name": "الجمعة",
+    "code": "FRI",
+    "entries": {
+      "sara": {
+        "entryStatus": "main",
+        "title": "إعداد التقرير الأسبوعي",
+        "short": "تقرير الأداء والدروس المستفادة",
+        "detail": "إعداد تقرير الأداء الأسبوعي الشامل وعرضه في مراجعة نهاية الأسبوع.",
+        "platform": null,
+        "priority": "مرتفع",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "10:00 ص",
+        "deadline": "02:00 م"
+      },
+      "omar": {
+        "entryStatus": "rest"
+      },
+      "layla": {
+        "entryStatus": "main",
+        "title": "نشر ملخص الإنجازات الأسبوعي",
+        "short": "منشور تلخيصي للأسبوع",
+        "detail": "نشر منشور يلخص أبرز إنجازات الفريق والمحتوى خلال الأسبوع.",
+        "platform": "إنستغرام",
+        "priority": "متوسط",
+        "status": "لم يبدأ",
+        "progress": 0,
+        "startTime": "04:00 م",
+        "deadline": "06:00 م"
+      },
+      "faisal": {
+        "entryStatus": "rest"
+      }
+    }
+  },
+  {
+    "name": "السبت",
+    "code": "SAT",
+    "entries": {
+      "sara": {
+        "entryStatus": "rest"
+      },
+      "omar": {
+        "entryStatus": "rest"
+      },
+      "layla": {
+        "entryStatus": "rest"
+      },
+      "faisal": {
+        "entryStatus": "rest"
+      }
+    }
+  }
+]

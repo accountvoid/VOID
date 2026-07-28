@@ -11,7 +11,7 @@
   
   <!-- صفحة المشاريع -->
   <url>
-    <loc>https://voidcy.pages.dev/projects.html</loc>
+    <loc>https://voidcy.pages.dev/Pages/projects.html</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
@@ -19,7 +19,7 @@
   
   <!-- صفحة من نحن / عن المنظمة -->
   <url>
-    <loc>https://voidcy.pages.dev/about.html</loc>
+    <loc>https://voidcy.pages.dev/Pages/about.html</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -27,7 +27,7 @@
   
   <!-- صفحة الشركاء -->
   <url>
-    <loc>https://voidcy.pages.dev/partners.html</loc>
+    <loc>https://voidcy.pages.dev/Pages/partners.html</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
