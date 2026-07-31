@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
+
   <!-- الصفحة الرئيسية -->
   <url>
-    <loc>https://voidcy.pages.dev/</loc>
-    <lastmod>2026-07-06</lastmod>
+    <loc>https://voidcy.pages.dev/Pages/index.html</loc>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.00</priority>
   </url>
-  
+
   <!-- صفحة المشاريع -->
   <url>
     <loc>https://voidcy.pages.dev/Pages/projects.html</loc>
-    <lastmod>2026-07-06</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
-  
+
   <!-- صفحة من نحن / عن المنظمة -->
   <url>
     <loc>https://voidcy.pages.dev/Pages/about.html</loc>
-    <lastmod>2026-07-06</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
-  
+
   <!-- صفحة الشركاء -->
   <url>
     <loc>https://voidcy.pages.dev/Pages/partners.html</loc>
-    <lastmod>2026-07-06</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
-  
+
 </urlset>
