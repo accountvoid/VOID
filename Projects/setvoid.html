@@ -353,6 +353,34 @@
         
         <section class="section-padding">
             <div class="section-title">
+                <span>ALPHA RELEASE COUNTDOWN</span>
+                <h2>العد التنازلي لإطلاق نسخة Alpha</h2>
+            </div>
+            <div class="stats-grid">
+                <div class="glass-card stat-item">
+                    <span class="stat-number" id="cd-days">00</span>
+                    <span class="stat-label">يوم</span>
+                </div>
+                <div class="glass-card stat-item">
+                    <span class="stat-number" id="cd-hours">00</span>
+                    <span class="stat-label">ساعة</span>
+                </div>
+                <div class="glass-card stat-item">
+                    <span class="stat-number" id="cd-minutes">00</span>
+                    <span class="stat-label">دقيقة</span>
+                </div>
+                <div class="glass-card stat-item">
+                    <span class="stat-number" id="cd-seconds">00</span>
+                    <span class="stat-label">ثانية</span>
+                </div>
+            </div>
+            <div class="btn-group">
+                <a href="#" id="alpha-download-btn" class="btn btn-primary" aria-disabled="true" style="cursor: not-allowed; opacity: 0.6;">التحميل متاح عند انتهاء العد التنازلي</a>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <div class="section-title">
                 <span>SYSTEM PHILOSOPHY & SYSTEM ARCHITECTS</span>
                 <h2>الهندسة الفلسفية والجهة المطورة VOID</h2>
             </div>
@@ -657,6 +685,36 @@
 
     <script src="../Pages/main.js"></script>
     <script>
+        // العد التنازلي لإطلاق نسخة Alpha: 19/10/2026 الساعة 12 منتصف الليل بتوقيت الجزائر (UTC+1)
+        const ALPHA_RELEASE_TIME = new Date('2026-10-19T00:00:00+01:00').getTime();
+        const ALPHA_DOWNLOAD_URL = '#'; // ضع رابط تحميل نسخة Alpha هنا
+        const alphaBtn = document.getElementById('alpha-download-btn');
+        let alphaReleased = false;
+
+        alphaBtn.addEventListener('click', (e) => {
+            if (!alphaReleased || ALPHA_DOWNLOAD_URL === '#') e.preventDefault();
+        });
+
+        function tickAlphaCountdown() {
+            const diff = Math.max(0, ALPHA_RELEASE_TIME - Date.now());
+            const pad = (n) => String(n).padStart(2, '0');
+            document.getElementById('cd-days').textContent = pad(Math.floor(diff / 86400000));
+            document.getElementById('cd-hours').textContent = pad(Math.floor(diff / 3600000) % 24);
+            document.getElementById('cd-minutes').textContent = pad(Math.floor(diff / 60000) % 60);
+            document.getElementById('cd-seconds').textContent = pad(Math.floor(diff / 1000) % 60);
+
+            if (diff === 0 && !alphaReleased) {
+                alphaReleased = true;
+                alphaBtn.href = ALPHA_DOWNLOAD_URL;
+                alphaBtn.removeAttribute('aria-disabled');
+                alphaBtn.style.cursor = 'pointer';
+                alphaBtn.style.opacity = '1';
+                alphaBtn.textContent = 'تحميل نسخة Alpha';
+            }
+        }
+        tickAlphaCountdown();
+        setInterval(tickAlphaCountdown, 1000);
+
         // سكربت ذكي لتحديث السنة تلقائياً
         const currentYear = new Date().getFullYear();
         document.getElementById('current-year-tag').innerText = `ANNUAL GOAL: ${currentYear}`;
