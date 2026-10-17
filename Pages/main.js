@@ -3,6 +3,23 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Loading Screen (robust): hides on window load, or after max 4s even if fonts/images hang
+    const loader = document.getElementById('loading-screen');
+    if (loader) {
+        let loaderHidden = false;
+        const hideLoader = () => {
+            if (loaderHidden) return;
+            loaderHidden = true;
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 600);
+            }, 400);
+        };
+        if (document.readyState === 'complete') hideLoader();
+        else window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 4000);
+    }
+
     // 1. Particle System Architecture (Canvas Background)
     const canvas = document.getElementById('cosmic-bg');
     if (canvas) {
@@ -120,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function animateCounter(counterElement) {
         if (!counterElement) return;
         const target = parseInt(counterElement.getAttribute('data-target'));
+        if (isNaN(target)) return; // e.g. live countdown numbers
         const duration = 2000; // 2 seconds
         const stepTime = Math.max(Math.floor(duration / target), 15);
         let start = 0;
@@ -134,16 +152,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }, stepTime);
     }
 
-    // 5. Elite Loading Finish Sequence
-    const loader = document.getElementById('loading-screen');
-    if (loader) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 600);
-            }, 400);
-        });
-    }
 });
